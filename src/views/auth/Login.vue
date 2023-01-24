@@ -37,8 +37,7 @@
                         
 
                     </v-card>
-                    <p class="text-center body-2 mt-7">Nemam račun. <router-link to="/registracija" class="rm-underline">Napravi račun</router-link> </p>
-                    <p class="text-center body-2">Zaboravili ste lozinku? <router-link to="/resetiranje-lozinke" class="rm-underline">Resetiranje lozinke</router-link> </p>
+                    <p class="text-center body-2 mt-5">Zaboravili ste lozinku? <router-link to="/resetiranje-lozinke" class="rm-underline">Resetiranje lozinke</router-link> </p>
                 </v-col>
             </v-row>
         </v-container>

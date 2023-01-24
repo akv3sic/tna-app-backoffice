@@ -12,11 +12,6 @@ const routes = [
   },
   // auth
   {
-    path: '/registracija',
-    name: 'registracija',
-    component: () => import("@/views/auth/Register")
-  },
-  {
     path: '/prijava',
     name: 'login',
     component: () => import("@/views/auth/Login")
