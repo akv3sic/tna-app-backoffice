@@ -1,15 +1,20 @@
 <template>
-  <hello-world />
+  <div>
+    <Header />
+    <v-container fluid class="pa-0">
+      this is home :)
+    </v-container>
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import Header from '@/components/layout/TheHeader'
 
   export default {
     name: 'Home',
 
     components: {
-      HelloWorld,
+      Header
     },
   }
 </script>
