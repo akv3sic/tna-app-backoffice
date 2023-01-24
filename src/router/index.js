@@ -10,6 +10,22 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  // auth
+  {
+    path: '/registracija',
+    name: 'registracija',
+    component: () => import("@/views/auth/Register")
+  },
+  {
+    path: '/prijava',
+    name: 'login',
+    component: () => import("@/views/auth/Login")
+  },
+  {
+    path: '/resetiranje-lozinke',
+    name: 'reset-password',
+    component: () => import("@/views/auth/ResetPassword")
+  },
   {
     path: '/about',
     name: 'about',
