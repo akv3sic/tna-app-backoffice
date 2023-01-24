@@ -2,7 +2,9 @@
         <v-container blue lighten-5 fluid fill-height>
             <v-row align="center" class="">
                 <v-col class="">
-                    <v-img src="@/assets/img/logo.png" max-width="65px" class="mx-auto mb-6"></v-img>
+                    <router-link to="/">
+                        <v-img src="@/assets/img/logo.png" max-width="65px" class="mx-auto mb-6"></v-img>
+                    </router-link>
                     <v-card class="mx-auto" max-width="600px" min-width="250px" flat>
                         <v-card-text class="py-10">
                             <h3 class="display-1 text-center">Zaboravili ste lozinku?</h3>
