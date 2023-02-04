@@ -33,7 +33,7 @@ const routes = [
       {
         path: 'aktivni-dogadjaji',
         name: 'admin-events',
-        component: () => import("@/views/admin/EventsOverview"),
+        component: () => import("@/views/admin/ActiveEvents"),
       },
     ]
   },

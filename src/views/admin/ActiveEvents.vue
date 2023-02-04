@@ -1,6 +1,6 @@
 <template>
     <v-container class="">
-        <h2 class="mb-2">Pregled događaja</h2>
+        <h2 class="mb-2">Aktivni događaji</h2>
         <v-row class="mb-5">
             <v-col>
                 <span class="accent--text"> Lorem ipsum dolor sit amet consectetur adipisicing. </span>
@@ -25,7 +25,7 @@
 <script>
 
 export default {
-    name: "AdminEventsOverview",
+    name: "ActiveEvents",
     data: () => ({
        //
     }),
