@@ -1,14 +1,9 @@
 <template>
     <v-container class="">
-        <h2 class="mb-2">Aktivni događaji</h2>
+        <h2 class="mb-2">Završeni događaji</h2>
         <v-row class="mb-5">
             <v-col>
-                <span class="accent--text"> Pregled nadolazećih događaja koje ste kreirali. </span>
-            </v-col>
-            <v-col>
-                <v-btn class="accent px-5" to="dodaj-dogadjaj">
-                    Novi događaj
-                </v-btn>
+                <span class="accent--text"> Pregled završenih događaja. </span>
             </v-col>
         </v-row>
 
@@ -37,7 +32,7 @@
 
                 <v-col>
                     <v-card-text>
-                        Lorem: ipsum
+                        Broj sudionika: 10
                         <br>
 
                         <v-btn 

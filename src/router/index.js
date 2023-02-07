@@ -33,8 +33,13 @@ const routes = [
     children: [
       {
         path: 'aktivni-dogadjaji',
-        name: 'admin-events',
+        name: 'admin-active-events',
         component: () => import("@/views/admin/ActiveEvents"),
+      },
+      {
+        path: 'zavrseni-dogadjaji',
+        name: 'admin-finished-events',
+        component: () => import("@/views/admin/FinishedEvents"),
       },
       {
         path: 'dodaj-dogadjaj',
