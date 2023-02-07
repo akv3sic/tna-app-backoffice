@@ -27,6 +27,7 @@ const routes = [
   /************************************/
   {
     path: '/admin',
+    redirect: '/admin/aktivni-dogadjaji',
     component: () => import("@/views/admin/Home"),
     meta: {  },
     children: [
@@ -34,6 +35,11 @@ const routes = [
         path: 'aktivni-dogadjaji',
         name: 'admin-events',
         component: () => import("@/views/admin/ActiveEvents"),
+      },
+      {
+        path: 'dodaj-dogadjaj',
+        name: 'admin-new-event',
+        component: () => import("@/views/admin/AddNewEvent"),
       },
     ]
   },

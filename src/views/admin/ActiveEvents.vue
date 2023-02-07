@@ -6,7 +6,7 @@
                 <span class="accent--text"> Lorem ipsum dolor sit amet consectetur adipisicing. </span>
             </v-col>
             <v-col>
-                <v-btn class="accent px-5" to="novi-dogadjaj">
+                <v-btn class="accent px-5" to="dodaj-dogadjaj">
                     Novi događaj
                 </v-btn>
             </v-col>
