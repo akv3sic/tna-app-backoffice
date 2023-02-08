@@ -12,6 +12,20 @@
             </v-col>
         </v-row>
 
+        <!-- filters -->
+        <div class="d-flex filters-section">
+            <span class="filter-item">
+                 <v-select
+                 v-model="selectedCategory"
+                :items="eventCategories"
+                item-text="name"
+                filled
+                label="Filtriraj po kategoriji"
+                ></v-select> 
+            </span>
+        </div>
+        
+
         <!-- event card -->
         <v-card 
             v-for="event in events"
@@ -130,6 +144,42 @@ export default {
             start: "2020-12-12",
             end: "2020-12-12",
        },],
+       eventCategories: [{
+            id: 1,
+            name: "Kategorija 1",
+        },
+        {
+            id: 2,
+            name: "Kategorija 2",
+        },
+        {
+            id: 3,
+            name: "Kategorija 3",
+        },
+        {
+            id: 4,
+            name: "Kategorija 4",
+        },
+        {
+            id: 5,
+            name: "Kategorija 5",
+        },
+        {
+            id: 6,
+            name: "Kategorija 6",
+        },
+        {
+            id: 7,
+            name: "Kategorija 7",
+        },
+        {
+            id: 8,
+            name: "Kategorija 8",
+        },
+        {
+            id: 9,
+            name: "Kategorija 9",
+       }]
     }),
 }
 </script>

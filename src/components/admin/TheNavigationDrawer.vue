@@ -69,8 +69,13 @@ export default {
           to: '/admin/zavrseni-dogadjaji'
         },
         {
-          icon: 'mdi-account-tie',
-          title: 'Osobe',
+          icon: 'mdi-shape',
+          title: 'Kategorije događaja',
+          to: '/admin/kategorije-dogadjaja'
+        },
+        {
+          icon: 'mdi-account-group',
+          title: 'Pregled po osobama',
           to: '/admin/osobe'
         },
         {
