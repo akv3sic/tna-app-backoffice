@@ -23,6 +23,15 @@
                 label="Filtriraj po kategoriji"
                 ></v-select> 
             </span>
+            <span class="filter-item">
+                <v-select
+                v-model="selectedLocation"
+                :items="locations"
+                item-text="name"
+                filled
+                label="Filtriraj po lokaciji"
+                ></v-select>
+            </span>
         </div>
         
 
@@ -179,7 +188,43 @@ export default {
         {
             id: 9,
             name: "Kategorija 9",
-       }]
+       }],
+       locations: [{
+            id: 1,
+            name: "Lokacija 1",
+        },
+        {
+            id: 2,
+            name: "Lokacija 2",
+        },
+        {
+            id: 3,
+            name: "Lokacija 3",
+        },
+        {
+            id: 4,
+            name: "Lokacija 4",
+        },
+        {
+            id: 5,
+            name: "Lokacija 5",
+        },
+        {
+            id: 6,
+            name: "Lokacija 6",
+        },
+        {
+            id: 7,
+            name: "Lokacija 7",
+        },
+        {
+            id: 8,
+            name: "Lokacija 8",
+        },
+        {
+            id: 9,
+            name: "Lokacija 9",
+       }],
     }),
 }
 </script>
