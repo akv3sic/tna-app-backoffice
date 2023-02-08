@@ -1,5 +1,7 @@
 # TNA app - backoffice
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d05ac115-aaa0-4dc7-813e-b2c645fdacc2/deploy-status)](https://app.netlify.com/sites/storied-kulfi-3cf481/deploys)
+
 System consists of three componenets: backoffice (webapp), desktop app and [REST API](https://github.com/VjekoRezic/TNA_DEMO).
 
 You can see database diagram [here](https://drawsql.app/teams/-b/diagrams/tna).
