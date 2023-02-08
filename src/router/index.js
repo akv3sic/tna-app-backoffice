@@ -46,6 +46,11 @@ const routes = [
         name: 'admin-new-event',
         component: () => import("@/views/admin/AddNewEvent"),
       },
+      {
+        path: 'kategorije-dogadjaja',
+        name: 'admin-event-categories',
+        component: () => import("@/views/admin/EventCategories"),
+      },
     ]
   },
 ]
