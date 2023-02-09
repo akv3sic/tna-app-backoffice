@@ -76,7 +76,7 @@ export default {
         {
           icon: 'mdi-account-group',
           title: 'Pregled po osobama',
-          to: '/admin/osobe'
+          to: '/admin/pregled-po-osobama'
         },
         {
           icon: 'mdi-cog',

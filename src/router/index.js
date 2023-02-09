@@ -56,6 +56,11 @@ const routes = [
         name: 'admin-event-categories',
         component: () => import("@/views/admin/EventCategories"),
       },
+      {
+        path: 'pregled-po-osobama',
+        name: 'admin-overview-by-person',
+        component: () => import("@/views/admin/OverviewByPerson"),
+      },
     ]
   },
 ]

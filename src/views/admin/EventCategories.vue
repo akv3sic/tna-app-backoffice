@@ -6,14 +6,11 @@
                 <span class="accent--text"> Vaše kategorije događaja. </span>
             </v-col>
             <v-col>
-                <v-btn class="accent px-5" to="dodaj-dogadjaj">
+                <v-btn class="accent px-5">
                     Nova kategorija
                 </v-btn>
             </v-col>
         </v-row>
-
-
-        
 
         <!-- category card -->
         <v-card 
