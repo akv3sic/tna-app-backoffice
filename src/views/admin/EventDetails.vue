@@ -1,0 +1,146 @@
+<template>
+<v-container>
+    <div class="d-flex">
+        <h2 class="mb-2">Detalji događaja</h2>
+        <span class="mt-1 ml-10">
+            <v-icon>mdi-pencil</v-icon>
+            <v-icon>mdi-delete</v-icon>
+        </span>
+    </div>
+    <v-row>
+        <v-col>Naziv: {{ event.name }} </v-col>
+        <v-col>
+            <v-icon>mdi-clock-start</v-icon>
+            <span class="ml-2">{{ event.start }}</span>
+        </v-col>
+    </v-row>
+        <v-row>
+        <v-col>Opis: {{ event.description }} </v-col>
+        <v-col>
+            <v-icon>mdi-clock-end</v-icon>
+            <span class="ml-2">{{ event.end }}</span>
+        </v-col>
+    </v-row>
+    <v-row>
+        <v-col>
+            <span class="text-caption">Kreirano:  {{ event.created_at }} </span>
+            <br>
+            <span class="text-caption">Ažurirano: {{ event.updated_at }} </span>
+        </v-col>
+    </v-row>
+
+    <div class="mt-5"> <!-- samo u slučaju da ima zapisa o prisutnosti -->
+        <h3>Popis prisutnosti</h3>
+
+         <!-- **** ZAGLAVLJE liste **** -->
+         <v-row class="hidden-sm-and-down mt-1">
+            <v-col class="text-left" cols="3">
+                Ime i prezime
+            </v-col>
+            <v-col class="text-left" cols="3">
+                Ulazak
+            </v-col>
+            <v-col class="text-left" cols="6">
+                Izlazak
+            </v-col>
+        </v-row>
+        <!-- ************************** -->
+
+        
+        <!-- **** STAVKE liste **** -->
+        <v-card
+            v-for="record in records"
+            :key="record.id"
+            class="pa-1 my-2"
+            outlined
+        >
+            <v-row>
+            <v-col cols="3" md="3">
+                {{ record.name}} {{ record.surname}}
+            </v-col>
+            <v-col cols="5" md="3">
+                <v-row class="hidden-md-and-up"> 
+                    <v-col class="text-caption">Ulazak</v-col>
+                </v-row>
+                {{ record.in}}
+            </v-col><v-col cols="3" md="4">
+                <v-row class="hidden-md-and-up"> 
+                    <v-col class="text-caption">Izlazak</v-col>
+                </v-row>
+                {{ record.out}}
+            </v-col>
+
+            <v-col  cols="12" md="2">
+                <v-row class="hidden-md-and-up"> 
+                    <v-col class="text-caption">Tip</v-col>
+                </v-row>
+                {{ record.type}}
+            </v-col>
+            </v-row>
+        </v-card>
+        <!-- ************************** -->
+    </div>
+</v-container>
+</template>
+
+
+<script>
+export default {
+    name: "EventDetails",
+    data: () => ({
+        event: {
+            id: 1,
+            name: "Događaj 1",
+            description: "Opis događaja 1",
+            start: "2020-12-12",
+            end: "2020-12-12",
+            created_at: "2020-12-12",
+            updated_at: "2020-12-12",
+        },
+        records: [{ 
+            id: 1,
+            name: "Ime",
+            surname: "Prezime",
+            in: "2020-12-12 12:00",
+            out: "2020-12-12 12:00",
+            type: "Tip",
+        },
+        { 
+            id: 2,
+            name: "Ime",
+            surname: "Prezime",
+            in: "2020-12-12 12:00",
+            out: "2020-12-12 12:00",
+            type: "Tip",
+        },
+        { 
+            id: 3,
+            name: "Ime",
+            surname: "Prezime",
+            in: "2020-12-12 12:00",
+            out: "2020-12-12 12:00",
+            type: "Tip",
+        },
+        { 
+            id: 4,
+            name: "Ime",
+            surname: "Prezime",
+            in: "2020-12-12 12:00",
+            out: "2020-12-12 12:00",
+            type: "Tip",
+        },
+        { 
+            id: 5,
+            name: "Ime",
+            surname: "Prezime",
+            in: "2020-12-12 12:00",
+            out: "2020-12-12 12:00",
+            type: "Tip",
+        }],
+    })
+}
+</script>
+
+<style lang="">
+    
+</style>

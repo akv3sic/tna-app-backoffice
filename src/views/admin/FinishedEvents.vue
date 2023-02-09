@@ -58,8 +58,8 @@
                         <br>
 
                         <v-btn 
-                        class="mt-3 teal lighten-4"
-                        :disabled="true"
+                        class="primary"
+                        :to="'/admin/detalji-dogadjaja/' + event.id"
                         >
                         Detalji događaja
                         </v-btn>

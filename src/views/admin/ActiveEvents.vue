@@ -60,12 +60,9 @@
 
                 <v-col>
                     <v-card-text>
-                        Lorem: ipsum
-                        <br>
-
                         <v-btn 
-                        class="mt-3 teal lighten-4"
-                        :disabled="true"
+                        class="mt-3 primary"
+                        :to="'/admin/detalji-dogadjaja/' + event.id"
                         >
                         Detalji događaja
                         </v-btn>
