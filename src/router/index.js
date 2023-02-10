@@ -61,6 +61,11 @@ const routes = [
         name: 'admin-overview-by-person',
         component: () => import("@/views/admin/OverviewByPerson"),
       },
+      {
+        path: 'pregled-prisutnosti/:id',
+        name: 'admin-attendance-details',
+        component: () => import("@/views/admin/AttendanceDetails"),
+      },
     ]
   },
 ]

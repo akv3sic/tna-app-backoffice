@@ -45,7 +45,9 @@
                 </v-col>
     
                 <v-col  cols="12" md="2">
-                    <v-icon>mdi-account-details</v-icon>
+                    <router-link :to="'/admin/pregled-prisutnosti/' + user.id" class="rm-underline">
+                        <v-icon>mdi-account-details</v-icon>
+                    </router-link>
                 </v-col>
                 </v-row>
             </v-card>
@@ -81,6 +83,9 @@ export default {
     }),
 }
 </script>
-<style lang="">
-    
+
+<style >
+.rm-underline{
+    text-decoration: none;
+}
 </style>
