@@ -3,13 +3,13 @@ import httpClient from '@/common/httpClient'
 // initial state
 const state = () => ({
     isLoading: true,
-    locations: [],
+    categories: [],
  })
  
  // getters
  const getters = {
-    locations(state) {
-        return state.locations;
+    categories(state) {
+        return state.categories;
     },
     isLoading(state) {
         return state.isLoading;
@@ -19,12 +19,12 @@ const state = () => ({
  // actions
  const actions = {
 
-    fetchLocations( {commit}) {
+    fetchCategories( {commit}) {
         commit('REQUEST')
-        const url = '/location/'
-        httpClient.get(url)
+        const url = '/categories/'
+        httpClient.get(url, {withCredentials: true})
             .then((response) => {
-                commit('SET_LOCATIONS', response.data)
+                commit('SET_CATEGORIES', response.data)
             })
             .catch(err => {
                 console.log(err)
@@ -34,8 +34,8 @@ const state = () => ({
  
  // mutations
  const mutations = {
-    SET_LOCATIONS (state, payload) {
-        state.locations = payload
+    SET_CATEGORIES (state, payload) {
+        state.categories = payload
         state.isLoading = false
     },
     REQUEST (state){

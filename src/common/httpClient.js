@@ -9,9 +9,9 @@ const httpClient = Vue.axios.create({
     baseURL: process.env.VUE_APP_API_URL,
     headers: {
         "Content-Type": "application/json",
-    }
+    },
+    withCredentials: true,
 });
 
-httpClient.defaults.withCredentials = true;
 
 export default httpClient;

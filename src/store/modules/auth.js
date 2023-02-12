@@ -27,7 +27,6 @@ const actions = {
                 console.log(response)
                 // check response status
                 if(response.status === 200) { // OK
-                    httpClient.defaults.withCredentials = true;
                 // call /me/ endpoint to get user data
                    /* httpClient.get("/me/")
                     .then(response => {

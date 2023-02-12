@@ -12,7 +12,7 @@
             <span class="filter-item">
                  <v-select
                  v-model="selectedCategory"
-                :items="eventCategories"
+                :items="categories"
                 item-text="name"
                 filled
                 label="Filtriraj po kategoriji"
@@ -79,10 +79,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 
 export default {
     name: "ActiveEvents",
     data: () => ({
+        selectedCategory: null,
+        selectedLocation: null,
        // mock data
        events: [{
             id: 1,
@@ -147,79 +150,24 @@ export default {
             start: "2020-12-12",
             end: "2020-12-12",
        },],
-       eventCategories: [{
-            id: 1,
-            name: "Kategorija 1",
-        },
-        {
-            id: 2,
-            name: "Kategorija 2",
-        },
-        {
-            id: 3,
-            name: "Kategorija 3",
-        },
-        {
-            id: 4,
-            name: "Kategorija 4",
-        },
-        {
-            id: 5,
-            name: "Kategorija 5",
-        },
-        {
-            id: 6,
-            name: "Kategorija 6",
-        },
-        {
-            id: 7,
-            name: "Kategorija 7",
-        },
-        {
-            id: 8,
-            name: "Kategorija 8",
-        },
-        {
-            id: 9,
-            name: "Kategorija 9",
-       }],
-       locations: [{
-            id: 1,
-            name: "Lokacija 1",
-        },
-        {
-            id: 2,
-            name: "Lokacija 2",
-        },
-        {
-            id: 3,
-            name: "Lokacija 3",
-        },
-        {
-            id: 4,
-            name: "Lokacija 4",
-        },
-        {
-            id: 5,
-            name: "Lokacija 5",
-        },
-        {
-            id: 6,
-            name: "Lokacija 6",
-        },
-        {
-            id: 7,
-            name: "Lokacija 7",
-        },
-        {
-            id: 8,
-            name: "Lokacija 8",
-        },
-        {
-            id: 9,
-            name: "Lokacija 9",
-       }],
     }),
+    mounted() {
+    this.fetchLocations()
+    this.fetchCategories()
+    },
+    methods: {
+        fetchLocations() {
+            this.$store.dispatch('locations/fetchLocations')
+        },
+        fetchCategories() {
+            this.$store.dispatch('categories/fetchCategories')
+        },
+    },
+    computed: {
+        
+    ...mapGetters('locations', ['locations', 'isLoading']),
+    ...mapGetters('categories', ['categories', 'isLoading']),
+    },
 }
 </script>
 
