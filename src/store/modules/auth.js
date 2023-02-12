@@ -23,7 +23,7 @@ const actions = {
     logIn({commit}, user){
         return new Promise((resolve, reject) => {
             commit('auth_request')
-            httpClient.post("/prijava/", user)
+            httpClient.post("/login/", user)
             .then(response => {
                 console.log(response)
                 // check response status

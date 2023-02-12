@@ -6,7 +6,7 @@ Vue.use(VueAxios, axios)
 
 
 const httpClient = Vue.axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL: process.env.VUE_APP_API_URL,
     headers: {
         "Content-Type": "application/json",
     }
