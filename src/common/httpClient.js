@@ -12,9 +12,6 @@ const httpClient = Vue.axios.create({
     }
 });
 
-if(window.localStorage.getItem('token')) { 
-    let token = 'Token ' + window.localStorage.getItem('token')
-    httpClient.defaults.headers.common['Authorization'] = token || ""
-}
+httpClient.defaults.withCredentials = true;
 
 export default httpClient;

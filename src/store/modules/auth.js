@@ -5,7 +5,6 @@ import router from '../../router'
 // initial state
 const state = () => ({
     status: '',
-    token: localStorage.getItem('token') || '',
     avatarText: localStorage.getItem('avatarText') || '',
     adminPermissions: false
 })
@@ -28,30 +27,25 @@ const actions = {
                 console.log(response)
                 // check response status
                 if(response.status === 200) { // OK
-                // assign response data
-                    const token = response.data.token
-                    const avatarText = response.data.username[0] + response.data.userlastname[0]
-                    // const role = response.data.user.role
-                    /*if(role === 'Admin' ||  role === 'Superadmin') {
-                        // console.log('ADMIN here :)')
-                        commit('auth_admin')
-                    }*/
-                    // save token to local storage
-                    localStorage.setItem('token', token)
-                    // save display name to local storage
-                    localStorage.setItem('avatarText',avatarText)
-                    // set header
-                    httpClient.defaults.headers.common['Authorization'] = 'Token ' + token
-                    console.log("token stavljen")
-
+                    httpClient.defaults.withCredentials = true;
+                // call /me/ endpoint to get user data
+                   /* httpClient.get("/me/")
+                    .then(response => {
+                        if(response.status === 200) { // OK
+                            // assign response data
+                            const avatarText = response.data.first_name[0] + response.data.last_name[0]
+                            localStorage.setItem('avatarText', avatarText)
+                        }
+                    })*/
                     // call mutation
-                    commit('auth_success', { token, avatarText })
+                    const avatarText = 'NN'
+                    router.push("/admin")
+                    commit('auth_success', { avatarText })
                     resolve(response)
                 }
             })
             .catch(err => {
                 commit('auth_error')
-                localStorage.removeItem('token')
                 reject(err)
             })
         })
@@ -82,7 +76,6 @@ const actions = {
             })
             .catch(err => {
                 commit('auth_error', err)
-                localStorage.removeItem('token')
                 reject(err)
             })
         })
@@ -137,9 +130,8 @@ const mutations = {
     auth_error(state){
         state.status = 'error'
     },
-    auth_success(state, { token, avatarText }){
+    auth_success(state, { avatarText }){
         state.status = 'success'
-        state.token = token
         state.avatarText = avatarText
     },
     auth_admin(state){

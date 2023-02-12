@@ -72,7 +72,6 @@ export default {
         console.log(USER)
         this.$store
             .dispatch('auth/logIn', USER, { root: true })
-                this.$router.push("/")
             .catch( err => {
                 console.log("Greska pri prijavi: " + err)
                 })

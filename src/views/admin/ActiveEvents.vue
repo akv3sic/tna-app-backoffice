@@ -82,10 +82,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
     name: "ActiveEvents",
     data: () => ({
+        selectedCategory: null,
+        selectedLocation: null,
        // mock data
        events: [{
             id: 1,
@@ -186,43 +189,20 @@ export default {
             id: 9,
             name: "Kategorija 9",
        }],
-       locations: [{
-            id: 1,
-            name: "Lokacija 1",
-        },
-        {
-            id: 2,
-            name: "Lokacija 2",
-        },
-        {
-            id: 3,
-            name: "Lokacija 3",
-        },
-        {
-            id: 4,
-            name: "Lokacija 4",
-        },
-        {
-            id: 5,
-            name: "Lokacija 5",
-        },
-        {
-            id: 6,
-            name: "Lokacija 6",
-        },
-        {
-            id: 7,
-            name: "Lokacija 7",
-        },
-        {
-            id: 8,
-            name: "Lokacija 8",
-        },
-        {
-            id: 9,
-            name: "Lokacija 9",
-       }],
     }),
+    mounted() {
+        this.fetchLocations()
+    },
+    methods: {
+        fetchLocations() {
+            this.$store.dispatch('locations/fetchLocations')
+        }
+    },
+    computed: {
+        
+    ...mapGetters('locations', ['locations', 'isLoading']),
+    },
+
 }
 </script>
 
