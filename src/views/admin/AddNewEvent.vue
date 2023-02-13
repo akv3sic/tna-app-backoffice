@@ -14,8 +14,30 @@
                 <!--Data -->
 
                 <!-- name -->
-                <v-col cols="12" class="mx-auto">
+                <v-col cols="4" class="mx-auto">
                     <v-text-field v-model="name" :rules="[rules.required]" label="Naziv" maxlength="20" required></v-text-field>
+                </v-col>
+                <!-- location -->
+                <v-col cols="4">
+                    <v-select
+                        v-model="location"
+                        :items="locations"
+                        item-text="name"
+                        item-value="id"
+                        label="Odaberi lokaciju"
+                        :rules="[rules.required]"
+                    ></v-select>
+                </v-col>
+                <!-- category -->
+                <v-col cols="4">
+                    <v-select
+                        v-model="category"
+                        :items="categories"
+                        item-text="name"
+                        item-value="id"
+                        label="Odaberi kategoriju"
+                        :rules="[rules.required]"
+                    ></v-select>
                 </v-col>
 
                 <!-- description -->
@@ -27,21 +49,21 @@
                     ></v-textarea>
                 </v-col>
 
-                <!-- start -->
-                <v-col cols="6" class="">
+                <!-- date of event -->
+                <v-col cols="4" class="">
                     <v-menu
-                        ref="startDate"
-                        v-model="startDateMenu"
+                        ref="eventDate"
+                        v-model="dateMenu"
                         :close-on-content-click="false"
-                        :return-value.sync="start"
+                        :return-value.sync="eventDate"
                         transition="scale-transition"
                         offset-y
                         min-width="auto"
                     >
                         <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                            v-model="start"
-                            label="Početak"
+                            v-model="eventDate"
+                            label="Datum događaja"
                             prepend-icon="mdi-calendar"
                             readonly
                             v-bind="attrs"
@@ -51,7 +73,7 @@
                         ></v-text-field>
                         </template>
                         <v-date-picker
-                        v-model="start"
+                        v-model="eventDate"
                         no-title
                         scrollable
                         >
@@ -59,14 +81,14 @@
                         <v-btn
                             text
                             color="primary"
-                            @click="startDateMenu = false"
+                            @click="dateMenu = false"
                         >
                             Zatvori
                         </v-btn>
                         <v-btn
                             text
                             color="primary"
-                            @click="$refs.startDate.save(start)"
+                            @click="$refs.eventDate.save(eventDate)"
                         >
                             Potvrdi
                         </v-btn>
@@ -74,51 +96,14 @@
                     </v-menu>
                 </v-col>
 
-                <!--end -->
-                <v-col cols="6" class="">
-                    <v-menu
-                        ref="endDate"
-                        v-model="endDateMenu"
-                        :close-on-content-click="false"
-                        :return-value.sync="end"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            v-model="end"
-                            label="Završetak"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                            required
-                            :rules="[rules.required]"
-                        ></v-text-field>
-                        </template>
-                        <v-date-picker
-                        v-model="end"
-                        no-title
-                        scrollable
-                        >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="endDateMenu = false"
-                        >
-                            Zatvori
-                        </v-btn>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="$refs.endDate.save(end)"
-                        >
-                            Potvrdi
-                        </v-btn>
-                        </v-date-picker>
-                    </v-menu>
+                <!-- start time -->
+                <v-col cols="4" class="mt-2">
+                    Početak: <vue-timepicker :minute-interval="5" v-model="start"></vue-timepicker>
+                </v-col>
+
+                <!-- end time -->
+                <v-col cols="4" class="mt-2">
+                    Kraj: <vue-timepicker :minute-interval="5" v-model="end"></vue-timepicker>
                 </v-col>
                 
                 <!--add new btn -->
@@ -131,18 +116,27 @@
 </template>
 
 <script>
+import categories from '@/store/modules/categories'
+import { mapGetters } from 'vuex'
+import VueTimepicker from 'vue2-timepicker'
+
 export default {
     name: "addNewEvent",
+    components: {
+        VueTimepicker
+    },
     data: () => ({
-        startDateMenu: false,
-        endDateMenu: false,
+        dateMenu: false,
         valid: false,
 
         // data
+        eventDate: "",
         name: "",
         description: "",
-        start: "",
-        end: "",
+        start:"" , 
+        end:"",
+        location: "",
+        category: "",
 
         //  validation
         rules: {
@@ -155,18 +149,33 @@ export default {
             const event = {
                 name: this.name,
                 description: this.description,
-                start: this.start,
-                end: this.end,
+                start: this.eventDate + " " + this.start + ":00",
+                end: this.eventDate + " " + this.end + ":00",
+                location: this.location,
+                event_category: this.category,
             }
-            console.log(event)
+            
+            this.$store.dispatch('events/postEvent', event)
             }
             this.$router.push({path: 'aktivni-dogadjaji'})
+            this.valid = false
         },
-    }
+    },
+    mounted() {
+        this.valid = false
+        this.$store.dispatch('locations/fetchLocations')
+        this.$store.dispatch('categories/fetchCategories')
+    },
+    computed: {
+        ...mapGetters('locations', ['locations']),
+        ...mapGetters('categories', ['categories']),
+    },
 }
 </script>
 
 <style>
+@import 'vue2-timepicker/dist/VueTimepicker.css';
+
 @media screen and (min-width: 1200px){
    .add-new-form {
     max-width: 50vw;
