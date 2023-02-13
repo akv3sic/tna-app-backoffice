@@ -30,7 +30,7 @@
             >
                 <v-row>
                 <v-col cols="3" md="3">
-                    {{ user.name}} {{ user.surname}}
+                    {{ user.first_name}} {{ user.last_name}}
                 </v-col>
                 <v-col cols="5" md="3">
                     <v-row class="hidden-md-and-up"> 
@@ -39,9 +39,9 @@
                     {{ user.email}}
                 </v-col><v-col cols="3" md="4">
                     <v-row class="hidden-md-and-up"> 
-                        <v-col class="text-caption">Ukupno prisutnost</v-col>
+                        <v-col class="text-caption">lorem ipsum</v-col>
                     </v-row>
-                    {{ user.generalPresence}}
+                    some col
                 </v-col>
     
                 <v-col  cols="12" md="2">
@@ -60,27 +60,21 @@
 export default {
     name: "OverviewByPerson",
     data: () => ({
-        users: [{
-            id: 1,
-            name: "Ivan",
-            surname: "Ivić",
-            email: "test@mail.ba",
-            generalPresence: "2h 30min"
-        },
-        {
-            id: 2,
-            name: "Marko",
-            surname: "Marković",
-            email: "test@mail.ba",
-            generalPresence: "2h 30min"},
-        {
-            id: 3,
-            name: "Petar",
-            surname: "Petrović",
-            email: "test@mail.ba",
-            generalPresence: "2h 30min"
-        }]
+        
     }),
+    mounted() {
+        this.fetchUsers()
+    },
+    methods: {
+        fetchUsers() {
+            this.$store.dispatch('users/fetchUsers')
+        }
+    },
+    computed: {
+        users() {
+            return this.$store.getters['users/users']
+        }
+    }
 }
 </script>
 
