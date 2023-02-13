@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 const state = () => ({
     isLoading: true,
     events: [],
+    event: {},
+    eventRecords: [],
  })
  
  // getters
@@ -15,6 +17,12 @@ const state = () => ({
     isLoading(state) {
         return state.isLoading;
     },
+    event(state) {
+        return state.event;
+    },
+    eventRecords(state) {
+        return state.eventRecords;
+    }
  }
  
  // actions
@@ -31,6 +39,20 @@ const state = () => ({
                 console.log(err)
             })
     },  
+
+    // fetch event details
+    fetchEventDetails( {commit}, id) {
+        commit('REQUEST')
+        const url = '/event/' + id + '/'
+        httpClient.get(url, {withCredentials: true})
+            .then((response) => {
+                commit('SET_EVENT', response.data.event)
+                commit('SET_EVENT_RECORDS', response.data.records)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
 
     // post new category
     postEvent( {commit}, event) {
@@ -55,6 +77,14 @@ const state = () => ({
  const mutations = {
     SET_EVENTS (state, payload) {
         state.events = payload
+        state.isLoading = false
+    },
+    SET_EVENT (state, payload) {
+        state.event = payload
+        state.isLoading = false
+    },
+    SET_EVENT_RECORDS (state, payload) {
+        state.eventRecords = payload
         state.isLoading = false
     },
     REQUEST (state){

@@ -6,7 +6,7 @@
                 <span class="accent--text"> Vaše kategorije događaja. </span>
             </v-col>
             <v-col>
-                <v-btn class="accent px-5" v-if="!addNewActivated" @click="toggleAddNewActivated">
+                <v-btn class="primary px-5" v-if="!addNewActivated" @click="toggleAddNewActivated">
                     Nova kategorija
                 </v-btn>
             </v-col>

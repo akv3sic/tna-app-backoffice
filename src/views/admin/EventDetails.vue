@@ -56,18 +56,18 @@
         >
             <v-row>
             <v-col cols="3" md="3">
-                {{ record.name}} {{ record.surname}}
+                {{ record.user.first_name}} {{ record.user.last_name}}
             </v-col>
             <v-col cols="5" md="3">
                 <v-row class="hidden-md-and-up"> 
                     <v-col class="text-caption">Ulazak</v-col>
                 </v-row>
-                {{ record.in}}
+                {{ record.in_time}}
             </v-col><v-col cols="3" md="4">
                 <v-row class="hidden-md-and-up"> 
                     <v-col class="text-caption">Izlazak</v-col>
                 </v-row>
-                {{ record.out}}
+                {{ record.out_time}}
             </v-col>
 
             <v-col  cols="12" md="2">
@@ -88,56 +88,24 @@
 export default {
     name: "EventDetails",
     data: () => ({
-        event: {
-            id: 1,
-            name: "Događaj 1",
-            description: "Opis događaja 1",
-            start: "2020-12-12",
-            end: "2020-12-12",
-            created_at: "2020-12-12",
-            updated_at: "2020-12-12",
+       
+    }),
+    created() {
+        this.fetchEvent()
+    },
+    methods: {
+      fetchEvent() {
+        this.$store.dispatch('events/fetchEventDetails', this.$route.params.id)
+      },  
+    },
+    computed: {
+        event() {
+            return this.$store.getters['events/event']
         },
-        records: [{ 
-            id: 1,
-            name: "Ime",
-            surname: "Prezime",
-            in: "2020-12-12 12:00",
-            out: "2020-12-12 12:00",
-            type: "Tip",
+        records() {
+            return this.$store.getters['events/eventRecords']
         },
-        { 
-            id: 2,
-            name: "Ime",
-            surname: "Prezime",
-            in: "2020-12-12 12:00",
-            out: "2020-12-12 12:00",
-            type: "Tip",
-        },
-        { 
-            id: 3,
-            name: "Ime",
-            surname: "Prezime",
-            in: "2020-12-12 12:00",
-            out: "2020-12-12 12:00",
-            type: "Tip",
-        },
-        { 
-            id: 4,
-            name: "Ime",
-            surname: "Prezime",
-            in: "2020-12-12 12:00",
-            out: "2020-12-12 12:00",
-            type: "Tip",
-        },
-        { 
-            id: 5,
-            name: "Ime",
-            surname: "Prezime",
-            in: "2020-12-12 12:00",
-            out: "2020-12-12 12:00",
-            type: "Tip",
-        }],
-    })
+    },
 }
 </script>
 

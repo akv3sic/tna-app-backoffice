@@ -6,7 +6,7 @@
                 <span class="accent--text"> Pregled nadolazećih događaja koje ste kreirali. </span>
             </v-col>
             <v-col>
-                <v-btn class="accent px-5" to="dodaj-dogadjaj">
+                <v-btn class="primary px-5" to="dodaj-dogadjaj">
                     Novi događaj
                 </v-btn>
             </v-col>
