@@ -5,8 +5,9 @@ import router from '../../router'
 // initial state
 const state = () => ({
     status: '',
-    avatarText: localStorage.getItem('avatarText') || '',
-    adminPermissions: false
+    user: {},
+    adminPermissions: false,
+    avatarText: ''
 })
 
 // getters
@@ -14,6 +15,7 @@ const getters = {
     isLoggedIn: state => !!state.token,
     hasAdminPermissions: state => state.adminPermissions,
     authStatus: state => state.status,
+    user: state => state.user,
     avatarText: state => state.avatarText
 }
 
@@ -27,19 +29,9 @@ const actions = {
                 console.log(response)
                 // check response status
                 if(response.status === 200) { // OK
-                // call /me/ endpoint to get user data
-                   /* httpClient.get("/me/")
-                    .then(response => {
-                        if(response.status === 200) { // OK
-                            // assign response data
-                            const avatarText = response.data.first_name[0] + response.data.last_name[0]
-                            localStorage.setItem('avatarText', avatarText)
-                        }
-                    })*/
                     // call mutation
-                    const avatarText = 'NN'
                     router.push("/admin")
-                    commit('auth_success', { avatarText })
+                    commit('auth_success')
                     resolve(response)
                 }
             })
@@ -49,6 +41,25 @@ const actions = {
             })
         })
     },
+
+    fetchUser({commit}) {
+        return new Promise((resolve, reject) => {
+            httpClient.get("/me/")
+            .then(response => {
+                if(response.status === 200) { // OK
+                    // assign response data
+                    const user = response.data
+                    commit('fetch_user_success', {user})
+                    resolve(response)
+                }
+            })
+            .catch(err => {
+                commit('auth_error')
+                reject(err)
+            })
+        })
+    },
+
     register({commit}, user) {
         return new Promise((resolve, reject) => {
             commit('auth_request')
@@ -81,15 +92,12 @@ const actions = {
     },
     logOut({commit}) {
         return new Promise((resolve, reject) => {
-            httpClient.get("/odjava/")
+            httpClient.post("/logout/")
             .then((response) => {
                 // Success :)
                 console.log(response);
                 console.log("Odjava");
                 commit('logout')
-                localStorage.removeItem('avatarText')
-                localStorage.removeItem('token')
-                delete httpClient.defaults.headers.common['Authorization']
                 resolve(response)
                 commit('logout_success_alert')
             })
@@ -129,17 +137,20 @@ const mutations = {
     auth_error(state){
         state.status = 'error'
     },
-    auth_success(state, { avatarText }){
+    auth_success(state){
         state.status = 'success'
-        state.avatarText = avatarText
     },
     auth_admin(state){
         state.adminPermissions= true
     },
+    fetch_user_success(state, {user}){
+        state.status = 'success'
+        state.user = user
+        state.avatarText = state.user.first_name[0] + state.user.last_name[0]
+    },
     logout(state){
         state.status = ''
-        state.token = ''
-        state.avatarText = ''
+        state.user = {}
     },
     /* successful registration alert */
     registration_success_alert(){

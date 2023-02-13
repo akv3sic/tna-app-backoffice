@@ -16,7 +16,9 @@
             <v-menu offset-y left>
                 <template v-slot:activator="{ on, attrs }">    
                     <v-btn icon v-bind="attrs" v-on="on">
-                            <v-icon class="">mdi-account-circle</v-icon>
+                        <v-avatar color="green" size="40">
+                            <span class="text-h6">{{ avatarText }}</span>
+                        </v-avatar>
                     </v-btn>
                 </template>
                     <v-list
@@ -42,6 +44,7 @@
 <script>
 import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'Navbar',
@@ -50,8 +53,12 @@ export default {
             { title: 'Odjava', action: 'logOut'},  
             ],
     }),
+    mounted() {
+        this.$store.dispatch('auth/fetchUser', { root: true })
+    },
     computed: {
-      ...mapState('admin', ['drawer'])
+      ...mapState('admin', ['drawer']),
+      ...mapGetters('auth', ['user', 'avatarText']),
     },
      methods: {
          handleAccountMenuItemClick(action) {
