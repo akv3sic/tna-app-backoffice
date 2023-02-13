@@ -6,10 +6,30 @@
                 <span class="accent--text"> Vaše kategorije događaja. </span>
             </v-col>
             <v-col>
-                <v-btn class="accent px-5">
+                <v-btn class="accent px-5" v-if="!addNewActivated" @click="toggleAddNewActivated">
                     Nova kategorija
                 </v-btn>
             </v-col>
+        </v-row>
+        
+        <!-- add a category -->
+        <v-row v-if="addNewActivated" class="mx-1">
+                    <v-col cols="3">
+                        <v-text-field
+                            label="Naziv kategorije"
+                            v-model="newCategory.name"
+                        ></v-text-field>  
+                    </v-col>
+                    <v-col cols="7">
+                        <v-text-field
+                            label="Opis kategorije"
+                            v-model="newCategory.description"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col>
+                        <v-btn text small class="primary--text mt-2" @click="addNewCategory">Potvrdi</v-btn>  
+                        <v-btn text small class="text red--text mt-2" @click="toggleAddNewActivated">x</v-btn>  
+                    </v-col>
         </v-row>
 
         <!-- category card -->
@@ -79,7 +99,11 @@ import { mapGetters } from 'vuex'
 export default {
     name: "EventCategories",
     data: () => ({
-
+        addNewActivated: false,
+        newCategory: {
+            name: '',
+            description: '',
+        },
     }),
     mounted() {
         this.fetchCategories()
@@ -87,6 +111,17 @@ export default {
     methods: {
         fetchCategories() {
             this.$store.dispatch('categories/fetchCategories')
+        },
+        toggleAddNewActivated() {
+            this.addNewActivated = !this.addNewActivated
+        },
+        addNewCategory() {
+            this.$store.dispatch('categories/postCategory', this.newCategory)
+            this.addNewActivated = false
+            this.newCategory = {
+                name: '',
+                description: '',
+            }
         },
     },
     computed: {
