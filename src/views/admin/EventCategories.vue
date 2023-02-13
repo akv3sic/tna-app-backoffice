@@ -74,26 +74,25 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
     name: "EventCategories",
     data: () => ({
-       // mock data
-        categories: [{
-            id: 1,
-            name: "Kategorija 1",
-            description: "Opis kategorije 1",
-            created_at: "2020-01-01",
-            updated_at: "2020-01-01",
-        }, {
-            id: 2,
-            name: "Kategorija 2",
-            description: "Opis kategorije 1",
-            created_at: "2020-01-01",
-            updated_at: "2020-01-01",
-        }],
-      
+
     }),
+    mounted() {
+        this.fetchCategories()
+    },
+    methods: {
+        fetchCategories() {
+            this.$store.dispatch('categories/fetchCategories')
+        },
+    },
+    computed: {
+        
+    ...mapGetters('categories', ['categories', 'isLoading']),
+    },
 }
 </script>
 
