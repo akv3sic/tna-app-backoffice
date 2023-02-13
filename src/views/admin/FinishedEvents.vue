@@ -14,6 +14,7 @@
                  v-model="selectedCategory"
                 :items="categories"
                 item-text="name"
+                item-value="id"
                 filled
                 label="Filtriraj po kategoriji"
                 ></v-select> 
@@ -23,6 +24,7 @@
                 v-model="selectedLocation"
                 :items="locations"
                 item-text="name"
+                item-value="id"
                 filled
                 label="Filtriraj po lokaciji"
                 ></v-select>
@@ -54,9 +56,6 @@
 
                 <v-col>
                     <v-card-text>
-                        Broj sudionika: 10
-                        <br>
-
                         <v-btn 
                         class="primary"
                         :to="'/admin/detalji-dogadjaja/' + event.id"
@@ -86,74 +85,11 @@ export default {
     data: () => ({
         selectedCategory: null,
         selectedLocation: null,
-       // mock data
-       events: [{
-            id: 1,
-            name: "Događaj 1",
-            description: "Opis događaja 1",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 2,
-            name: "Događaj 2",
-            description: "Opis događaja 2",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 3,
-            name: "Događaj 3",
-            description: "Opis događaja 3",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 4,
-            name: "Događaj 4",
-            description: "Opis događaja 4",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 5,
-            name: "Događaj 5",
-            description: "Opis događaja 5",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 6,
-            name: "Događaj 6",
-            description: "Opis događaja 6",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 7,
-            name: "Događaj 7",
-            description: "Opis događaja 7",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 8,
-            name: "Događaj 8",
-            description: "Opis događaja 8",
-            start: "2020-12-12",
-            end: "2020-12-12",
-        },
-        {
-            id: 9,
-            name: "Događaj 9",
-            description: "Opis događaja 9",
-            start: "2020-12-12",
-            end: "2020-12-12",
-       },],
     }),
     mounted() {
     this.fetchLocations()
     this.fetchCategories()
+    this.fetchEvents()
     },
     methods: {
         fetchLocations() {
@@ -162,12 +98,29 @@ export default {
         fetchCategories() {
             this.$store.dispatch('categories/fetchCategories')
         },
+        fetchEvents() {
+            this.$store.dispatch('events/fetchEvents', {
+                category: this.selectedCategory,
+                location: this.selectedLocation,
+                active: false
+            })
+        },
     },
     computed: {
         
     ...mapGetters('locations', ['locations', 'isLoading']),
     ...mapGetters('categories', ['categories', 'isLoading']),
+    ...mapGetters('events', ['events', 'isLoading']),
     },
+    watch: {
+        selectedCategory() {
+            this.fetchEvents()
+        },
+        selectedLocation() {
+            this.fetchEvents()
+        }
+    }
+
 }
 </script>
 

@@ -19,18 +19,19 @@ const state = () => ({
  
  // actions
  const actions = {
-
-    fetchEvents( {commit}) {
+    // fetch events and filter by category, location and active(true/false) using query params
+    fetchEvents( {commit}, {category, location, active}) {
         commit('REQUEST')
-        const url = '/events/'
-        httpClient.get(url, {withCredentials: true})
-            .then((response) => {
+        const url = '/event/'
+        httpClient.get(url, {withCredentials: true, params: {category, location, active}})  // query params are passed as an object to the params property
+            .then((response) => {                                                    // of the config object
                 commit('SET_EVENTS', response.data)
             })
             .catch(err => {
                 console.log(err)
-             })
-    },
+            })
+    },  
+
     // post new category
     postEvent( {commit}, event) {
         commit('REQUEST')
@@ -53,7 +54,7 @@ const state = () => ({
  // mutations
  const mutations = {
     SET_EVENTS (state, payload) {
-        state.categories = payload
+        state.events = payload
         state.isLoading = false
     },
     REQUEST (state){

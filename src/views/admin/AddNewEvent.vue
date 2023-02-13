@@ -133,8 +133,8 @@ export default {
         eventDate: "",
         name: "",
         description: "",
-        start:"" , 
-        end:"",
+        start:"00:00" , 
+        end:"00:00",
         location: "",
         category: "",
 
