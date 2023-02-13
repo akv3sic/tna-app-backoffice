@@ -3,12 +3,18 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import lighttheme from '@/themes/lightTheme.js'
+import Vuetify from 'vuetify/lib'
+
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  vuetify: new Vuetify({
+    theme: {},
+  }),
+  render: (h) => h(App),
+}).$mount('#app');
+
