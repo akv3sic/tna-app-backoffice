@@ -2,10 +2,6 @@
 <v-container>
     <div class="d-flex">
         <h2 class="mb-2">Detalji događaja</h2>
-        <span class="mt-1 ml-10">
-            <v-icon>mdi-pencil</v-icon>
-            <v-icon>mdi-delete</v-icon>
-        </span>
     </div>
     <v-row>
         <v-col>Naziv: {{ event.name }} </v-col>
@@ -25,7 +21,7 @@
         <v-col>
             <span class="text-caption">Kreirano:  {{ event.created_at }} </span>
             <br>
-            <span class="text-caption">Ažurirano: {{ event.updated_at }} </span>
+            <span class="text-caption" v-if="event.updated_at">Ažurirano: {{ event.updated_at }} </span>
         </v-col>
     </v-row>
 

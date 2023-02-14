@@ -32,11 +32,19 @@
                     </v-col>
         </v-row>
 
+        <!-- skeleton loader -->
+        <v-skeleton-loader
+            v-if="isLoading"
+            type="article@5"
+            class="my-8"
+        ></v-skeleton-loader>
+
         <!-- category card -->
         <v-card 
             v-for="category in categories"
             :key="category.id"
             class="my-8"
+            v-if="!isLoading"
         >
             <v-row>
                 <v-col>
@@ -49,9 +57,9 @@
 
                 <v-col class="d-flex  align-end">     
                     <v-card-text>
-                        Kreirano: {{ category.created_at }}
+                        <span>Kreirano: {{ category.created_at }}</span>
                         <br>
-                        Ažurirano: {{ category.updated_at }}
+                        <span v-if="category.updated_at">Ažurirano: {{ category.updated_at }}</span>
                     </v-card-text>
                 </v-col>
 

@@ -37,11 +37,19 @@
             </span>
         </div>
 
+        <!-- skeleton loader -->
+        <v-skeleton-loader
+            v-if="isLoading"
+            type="article@5"
+            class="my-8"
+        ></v-skeleton-loader>
+
         <!-- event card -->
         <v-card 
             v-for="event in events"
             :key="event.id"
             class="my-8"
+            v-else
         >
             <v-row>
                 <v-col>
