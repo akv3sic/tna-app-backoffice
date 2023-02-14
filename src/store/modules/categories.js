@@ -1,5 +1,6 @@
 import httpClient from '@/common/httpClient'
 import Swal from 'sweetalert2';
+import { formatDate } from '@/common/helpers/dateFormater'
 
 // initial state
 const state = () => ({
@@ -55,6 +56,11 @@ const state = () => ({
     SET_CATEGORIES (state, payload) {
         state.categories = payload
         state.isLoading = false
+        // loop though categories and format dates
+        state.categories.forEach(category => {
+            category.created_at = formatDate(category.created_at)
+            category.updated_at ? category.updated_at = formatDate(category.updated_at) : category.updated_at = null
+        })
     },
     REQUEST (state){
         state.isLoading = true

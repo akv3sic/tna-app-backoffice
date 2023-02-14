@@ -1,5 +1,6 @@
 import httpClient from '@/common/httpClient'
 import Swal from 'sweetalert2';
+import { formatDate } from '@/common/helpers/dateFormater'
 
 // initial state
 const state = () => ({
@@ -78,13 +79,29 @@ const state = () => ({
     SET_EVENTS (state, payload) {
         state.events = payload
         state.isLoading = false
+        // loop through events and format date
+        state.events.forEach(event => {
+            event.start = formatDate(event.start)
+            event.end = formatDate(event.end)
+        })
     },
     SET_EVENT (state, payload) {
         state.event = payload
         state.isLoading = false
+        // format dates
+        state.event.created_at = formatDate(state.event.created_at)
+        // add nul check for updated_at
+        state.event.updated_at ? state.event.updated_at = formatDate(state.event.updated_at) : state.event.updated_at = null
+        state.event.start = formatDate(state.event.start)
+        state.event.end = formatDate(state.event.end)
     },
     SET_EVENT_RECORDS (state, payload) {
         state.eventRecords = payload
+        // loop through records and format dates
+        state.eventRecords.forEach(record => {
+            record.in_time = formatDate(record.in_time)
+            record.out_time = formatDate(record.out_time)
+        })
         state.isLoading = false
     },
     REQUEST (state){
