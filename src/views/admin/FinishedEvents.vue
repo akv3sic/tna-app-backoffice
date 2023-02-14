@@ -29,6 +29,12 @@
                 label="Filtriraj po lokaciji"
                 ></v-select>
             </span>
+            <span class="filter-item" v-if="isThereFilters">
+                <v-btn text class="mt-3" @click="removeFilters">
+                    <v-icon>mdi-filter-remove</v-icon>
+                    <span class="text-caption">Poništi filtere</span>
+                </v-btn>
+            </span>
         </div>
 
         <!-- event card -->
@@ -105,12 +111,20 @@ export default {
                 active: false
             })
         },
+        removeFilters() {
+            this.selectedCategory = null
+            this.selectedLocation = null
+        }
     },
     computed: {
         
-    ...mapGetters('locations', ['locations', 'isLoading']),
-    ...mapGetters('categories', ['categories', 'isLoading']),
-    ...mapGetters('events', ['events', 'isLoading']),
+        ...mapGetters('locations', ['locations', 'isLoading']),
+        ...mapGetters('categories', ['categories', 'isLoading']),
+        ...mapGetters('events', ['events', 'isLoading']),
+
+        isThereFilters() {
+                return this.selectedCategory || this.selectedLocation
+            }
     },
     watch: {
         selectedCategory() {
