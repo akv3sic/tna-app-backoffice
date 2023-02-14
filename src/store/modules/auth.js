@@ -146,7 +146,10 @@ const mutations = {
     fetch_user_success(state, {user}){
         state.status = 'success'
         state.user = user
-        state.avatarText = state.user.first_name[0] + state.user.last_name[0]
+        state.avatarText = state.user.first_name[0].toUpperCase() + state.user.last_name[0].toUpperCase()
+        // capitalize first letter of first and last name
+        state.user.first_name = state.user.first_name.charAt(0).toUpperCase() + state.user.first_name.slice(1)
+        state.user.last_name = state.user.last_name.charAt(0).toUpperCase() + state.user.last_name.slice(1)
     },
     logout(state){
         state.status = ''
