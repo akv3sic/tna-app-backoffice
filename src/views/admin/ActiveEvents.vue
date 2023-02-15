@@ -12,8 +12,25 @@
             </v-col>
         </v-row>
 
+
+        <!-- filters skeleton loader -->
+        <div class="d-flex">
+            <v-skeleton-loader
+            v-if="isLoading"
+            type="actions"
+            class="my-4 d-flex ml-5"
+        ></v-skeleton-loader>
+
+        <v-skeleton-loader
+            v-if="isLoading"
+            type="actions"
+            class="my-4 d-flex ml-5"
+        ></v-skeleton-loader>
+        </div>
+
+
         <!-- filters -->
-        <div class="d-flex filters-section">
+        <div class="d-flex filters-section" v-if="!isLoading">
             <span class="filter-item">
                  <v-select
                  v-model="selectedCategory"
@@ -42,7 +59,7 @@
             </span>
         </div>
 
-        <!-- skeleton loader -->
+        <!-- events skeleton loader -->
         <v-skeleton-loader
             v-if="isLoading"
             type="article@5"

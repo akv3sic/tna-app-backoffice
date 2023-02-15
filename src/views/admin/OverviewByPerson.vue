@@ -3,7 +3,11 @@
         <div class="d-flex">
             <h2 class="mb-2">Pregled prisutnosti po osobama</h2>
         </div>
-       
+        <v-row class="">
+            <v-col>
+                <span class="accent--text"> Odabirom željene osobe možete vidjeti više detalja. </span>
+            </v-col>
+       </v-row>
         <div class="mt-5">
     
              <!-- **** ZAGLAVLJE liste **** -->
