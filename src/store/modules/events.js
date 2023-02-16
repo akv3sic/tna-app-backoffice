@@ -8,6 +8,8 @@ const state = () => ({
     events: [],
     event: {},
     eventRecords: [],
+    hasTheEventFinished: null,
+    hasTheEventStarted: null,
  })
  
  // getters
@@ -23,6 +25,12 @@ const state = () => ({
     },
     eventRecords(state) {
         return state.eventRecords;
+    },
+    hasTheEventFinished(state) {
+        return state.hasTheEventFinished;
+    },
+    hasTheEventStarted(state) {
+        return state.hasTheEventStarted;
     }
  }
  
@@ -88,6 +96,12 @@ const state = () => ({
     SET_EVENT (state, payload) {
         state.event = payload
         state.isLoading = false
+        // check if event is finished and started
+        const today = new Date()
+        const eventEnd = new Date(state.event.end)
+        const eventStart = new Date(state.event.start)
+        state.hasTheEventFinished = eventEnd < today
+        state.hasTheEventStarted = eventStart < today
         // format dates
         state.event.created_at = formatDate(state.event.created_at)
         // add nul check for updated_at

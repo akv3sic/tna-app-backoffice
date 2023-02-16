@@ -27,9 +27,26 @@
 
     <div class="mt-5"> <!-- samo u slučaju da ima zapisa o prisutnosti -->
         <h3>Popis prisutnosti</h3>
+        <!-- ********** messages  *********** -->
+        <v-row v-if="!isLoading">
+            <v-col>
+                <v-alert
+                    type="info"
+                    class="mt-5"
+                    outlined
+                >
+                    <span v-if="hasTheEventFinished && records.length == 0">Nitko nije bio prisutan na ovome događaju.</span>
+                    <span v-if="!hasTheEventStarted">Događaj počinje {{ event.start }}.</span>
+                    <span v-if="hasTheEventStarted && records.length == 0 && !hasTheEventFinished">Događaj je u tijeku. Još nitko nije došao.</span>
+                    <span v-if="hasTheEventStarted && records.length != 0 && !hasTheEventFinished">Događaj je u tijeku.</span>
+                    <span v-if="hasTheEventFinished && records.length != 0">Događaj je završen. Broj prisutnih: {{ records.length }}</span>
+                </v-alert>
+            </v-col>
+        </v-row>    
 
+        <!-- ******************************* -->
          <!-- **** ZAGLAVLJE liste **** -->
-         <v-row class="hidden-sm-and-down mt-1">
+         <v-row class="hidden-sm-and-down mt-1" v-if="records.length != 0">
             <v-col class="text-left" cols="3">
                 Ime i prezime
             </v-col>
@@ -100,6 +117,15 @@ export default {
         },
         records() {
             return this.$store.getters['events/eventRecords']
+        },
+        isLoading() {
+            return this.$store.getters['events/isLoading']
+        },
+        hasTheEventFinished() {
+            return this.$store.getters['events/hasTheEventFinished']
+        },
+        hasTheEventStarted() {
+            return this.$store.getters['events/hasTheEventStarted']
         },
     },
 }
