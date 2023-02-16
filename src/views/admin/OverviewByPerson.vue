@@ -9,9 +9,18 @@
             </v-col>
        </v-row>
         <div class="mt-5">
+
+            <!-- **** lista - skeleton loader **** -->
+
+            <v-skeleton-loader
+                v-if="isLoading"
+                type="table-thead, table-row@9"
+                class="mx-6 mt-9"
+            ></v-skeleton-loader>
+
     
              <!-- **** ZAGLAVLJE liste **** -->
-             <v-row class="hidden-sm-and-down mt-1">
+             <v-row class="hidden-sm-and-down mt-1" v-if="!isLoading && users.length != 0">
                 <v-col class="text-left" cols="3">
                     Ime i prezime
                 </v-col>
@@ -23,7 +32,6 @@
                 </v-col>
             </v-row>
             <!-- ************************** -->
-    
             
             <!-- **** STAVKE liste **** -->
             <v-card
@@ -31,6 +39,7 @@
                 :key="user.id"
                 class="pa-1 my-2"
                 outlined
+                v-if="!isLoading"
             >
                 <v-row>
                 <v-col cols="3" md="3">
@@ -61,6 +70,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: "OverviewByPerson",
     data: () => ({
@@ -75,9 +86,7 @@ export default {
         }
     },
     computed: {
-        users() {
-            return this.$store.getters['users/users']
-        }
+        ...mapGetters('users', ['users', 'isLoading'])
     }
 }
 </script>

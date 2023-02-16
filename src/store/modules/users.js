@@ -3,6 +3,8 @@ import httpClient from "@/common/httpClient";
 // initial state
 const state = () => ({
     isLoading: true,
+    recordsLoading: false,
+    categoriesLoading: true,
     users: [],
     userAttendance: [],
     userAttendanceRecords: [],
@@ -25,6 +27,12 @@ const getters = {
     },
     user(state) {
         return state.user;
+    },
+    categoriesLoading(state) {
+        return state.categoriesLoading;
+    },
+    recordsLoading(state) {
+        return state.recordsLoading;
     }
 }
 
@@ -42,7 +50,7 @@ const actions = {
              })
     },
     fetchUserAttendance( {commit}, id) {
-        commit('REQUEST')
+        commit('REQUEST_USER_ATTENDANCE')
         const url = '/users/' + id + '/'
         httpClient.get(url, {withCredentials: true})
             .then((response) => {
@@ -55,7 +63,7 @@ const actions = {
     },
     // fetch attendance by user id and category id
     fetchUserAttendanceRecordsByCategory( {commit}, {user_id, category}) {
-        commit('REQUEST')
+        commit('REQUEST_USER_ATTENDANCE_RECORDS')
         const url = '/record/' + user_id + '/'
         httpClient.get(url, {withCredentials: true, params: {category}})
             .then((response) => {
@@ -77,13 +85,19 @@ const mutations = {
     REQUEST (state){
         state.isLoading = true
     },
+    REQUEST_USER_ATTENDANCE (state){
+        state.categoriesLoading = true
+    },
+    REQUEST_USER_ATTENDANCE_RECORDS (state){
+        state.recordsLoading = true
+    },
     SET_USER_ATTENDANCE (state, payload) {
         state.userAttendance = payload
-        state.isLoading = false
+        state.categoriesLoading = false
     },
     SET_USER_ATTENDANCE_RECORDS (state, payload) {
         state.userAttendanceRecords = payload
-        state.isLoading = false
+        state.recordsLoading = false
     },
     SET_USER (state, payload) {
         state.user = payload

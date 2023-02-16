@@ -8,6 +8,19 @@
         </v-row>
         <v-row>
             <v-col>
+
+                <!-- **** kategorije - skeleton loader **** -->
+                <div class="d-flex mt-2 ml-1" v-if="categoriesLoading">
+                    <v-skeleton-loader
+                    v-for="n in 3"
+                    :key="n"
+                    class="mr-4"
+                    type="chip"
+                    >
+                    </v-skeleton-loader>
+                </div>
+
+                <!-- **** prikaz kategorija i postotaka **** -->
                 <v-chip-group v-model="selectedCategory">
                     <v-chip
                         v-for="category in userAttendance"
@@ -16,6 +29,7 @@
                         :color="categoryChipColor(category.percentage)"
                         filter
                         :value="category.category_id"
+                        v-if="!categoriesLoading"
                     >
                         {{ category.category }}: {{ category.percentage }}%
                     </v-chip>
@@ -26,7 +40,16 @@
 
         <h3 class="mt-5" v-if="selectedCategory !=null">Popis prisutnosti</h3>
 
-        <div v-if="selectedCategory !=null & !isLoading"> <!-- **** LISTA **** -->
+
+        <!-- **** lista - skeleton loader **** -->
+
+        <v-skeleton-loader
+            v-if="recordsLoading"
+            type="table-thead, table-row@9"
+            class="mx-2 mt-3"
+        ></v-skeleton-loader>
+
+        <div v-if="selectedCategory !=null & !recordsLoading"> <!-- **** LISTA **** -->
             <!-- **** ZAGLAVLJE liste **** -->
             <v-row class="hidden-sm-and-down mt-1">
                 <v-col class="text-left" cols="3">
@@ -105,7 +128,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('users', ['user','userAttendance', 'userAttendanceRecords', 'isLoading']),
+        ...mapGetters('users', ['user','userAttendance', 'userAttendanceRecords', 'categoriesLoading', 'recordsLoading']),
     },
     watch: {
         selectedCategory() {
