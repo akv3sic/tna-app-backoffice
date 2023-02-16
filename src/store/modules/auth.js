@@ -6,14 +6,16 @@ import router from '../../router'
 const state = () => ({
     status: '',
     user: {},
-    adminPermissions: false,
+    staffPermissions: false,
+    sudoPermissions: false,
     avatarText: ''
 })
 
 // getters
 const getters = {
     isLoggedIn: state => !!state.token,
-    hasAdminPermissions: state => state.adminPermissions,
+    hasStaffPermissions: state => state.staffPermissions,
+    hasSudoPermissions: state => state.sudoPermissions,
     authStatus: state => state.status,
     user: state => state.user,
     avatarText: state => state.avatarText
@@ -29,9 +31,45 @@ const actions = {
                 console.log(response)
                 // check response status
                 if(response.status === 200) { // OK
-                    // call mutation
-                    router.push("/admin")
-                    commit('auth_success')
+                    // call /me/ endpoint to get user data and wait for response
+                    httpClient.get("/me/")
+                    .then(response => {
+                        // check response status
+                        if(response.status === 200) { // OK
+                            // assign response data
+                            const user = response.data
+                            // set user data
+                            commit('fetch_user_success', {user})
+                            // set permissions
+                            commit('SET_STAFF_PERMISSIONS', user.is_staff)
+                            commit('SET_SUDO_PERMISSIONS', user.is_superuser)
+                            // USER IS NOT STAFF OR SUPERUSER - DENY ACCESS
+                            if(!user.is_staff && !user.is_superuser) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Nemate pravo pristupa!',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    position: 'top-end',
+                                })
+                                commit('auth_error')
+                            }
+                            else {
+                                // USER IS STAFF OR SUPERUSER - ALLOW ACCESS
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Uspješna prijava!', 
+                                    text: user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1) + ', dobro došli natrag!',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    position: 'top-end',
+                                })
+                                commit('auth_success')
+                                router.push("/admin")
+                            }
+                        }
+                    })
                     resolve(response)
                 }
             })
@@ -142,6 +180,12 @@ const mutations = {
     },
     auth_admin(state){
         state.adminPermissions= true
+    },
+    SET_STAFF_PERMISSIONS(state, value) {
+        state.staffPermissions = value
+    },
+    SET_SUDO_PERMISSIONS(state, value) {
+        state.sudoPermissions = value
     },
     fetch_user_success(state, {user}){
         state.status = 'success'
