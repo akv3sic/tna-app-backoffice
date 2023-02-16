@@ -2,9 +2,9 @@
     <v-container>
         <v-row>
             <v-col>
-                <span class="text-h5">Dodaj novi događaj</span>
-                <div class="ml-2 d-inline">
-                    <v-btn text small class="red--text" to="aktivni-dogadjaji">Odustani</v-btn>   
+                <div class="d-flex">
+                    <h2 class="">Dodaj novi događaj</h2>
+                    <v-btn text small class="red--text ml-4 mt-1" to="aktivni-dogadjaji">Odustani</v-btn>   
                 </div>
             </v-col>
         </v-row>
