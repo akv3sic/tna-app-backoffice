@@ -65,6 +65,8 @@ const actions = {
                                     timer: 1500,
                                     position: 'top-end',
                                 })
+                                // set isAuth to true to local storage
+                                localStorage.setItem('isAuth', true)
                                 commit('auth_success')
                                 router.push("/admin")
                             }
@@ -134,10 +136,12 @@ const actions = {
             .then((response) => {
                 // Success :)
                 console.log(response);
-                console.log("Odjava");
-                commit('logout')
+                if(response.status === 200) { // OK
+                    commit('logout')
+                    localStorage.setItem('isAuth', false)
+                    commit('logout_success_alert')
+                }
                 resolve(response)
-                commit('logout_success_alert')
             })
             .catch((error) => {
                 // Error :\
@@ -198,6 +202,8 @@ const mutations = {
     logout(state){
         state.status = ''
         state.user = {}
+        state.staffPermissions = false
+        state.sudoPermissions = false
     },
     /* successful registration alert */
     registration_success_alert(){

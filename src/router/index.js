@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -29,7 +30,7 @@ const routes = [
     path: '/admin',
     redirect: '/admin/aktivni-dogadjaji',
     component: () => import("@/views/admin/Home"),
-    meta: {  },
+    meta: { requiresStaffOrSuperuser: true },
     children: [
       {
         path: 'aktivni-dogadjaji',
@@ -75,5 +76,33 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+/************************************ PROTECTION OF ROUTES **************************************/
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresStaffOrSuperuser)) {
+    requireStaffOrSuperuser(to, from, next);
+  } else {
+    next();
+  }
+});
+
+
+const isAuthenticated = () => {
+  return localStorage.getItem('isAuth') === 'true';
+}
+
+const requireStaffOrSuperuser = (to, from, next) => {
+  if (isAuthenticated()) {
+    next();
+  } else {
+    next({
+      path: '/prijava',
+      query: { redirect: to.fullPath }
+    });
+  }
+};
+/**************************************************************************************************/
 
 export default router
