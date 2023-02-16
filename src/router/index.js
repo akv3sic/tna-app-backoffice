@@ -9,18 +9,21 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {title: 'Time & Attendance System'}
   },
   // auth
   {
     path: '/prijava',
     name: 'login',
-    component: () => import("@/views/auth/Login")
+    component: () => import("@/views/auth/Login"),
+    meta: {title: 'Prijava'}
   },
   {
     path: '/resetiranje-lozinke',
     name: 'reset-password',
-    component: () => import("@/views/auth/ResetPassword")
+    component: () => import("@/views/auth/ResetPassword"),
+    meta: {title: 'Resetiranje lozinke'}
   },
   
   /************************************/
@@ -36,36 +39,43 @@ const routes = [
         path: 'aktivni-dogadjaji',
         name: 'admin-active-events',
         component: () => import("@/views/admin/ActiveEvents"),
+        meta: {title: 'Aktivni događaji'}
       },
       {
         path: 'zavrseni-dogadjaji',
         name: 'admin-finished-events',
         component: () => import("@/views/admin/FinishedEvents"),
+        meta: {title: 'Završeni događaji'}
       },
       {
         path: 'detalji-dogadjaja/:id',
         name: 'admin-event-details',
         component: () => import("@/views/admin/EventDetails"),
+        meta: {title: 'Detalji događaja'}
       },
       {
         path: 'dodaj-dogadjaj',
         name: 'admin-new-event',
         component: () => import("@/views/admin/AddNewEvent"),
+        meta: {title: 'Dodaj novi događaj'}
       },
       {
         path: 'kategorije-dogadjaja',
         name: 'admin-event-categories',
         component: () => import("@/views/admin/EventCategories"),
+        meta: {title: 'Kategorije događaja'}
       },
       {
         path: 'pregled-po-osobama',
         name: 'admin-overview-by-person',
         component: () => import("@/views/admin/OverviewByPerson"),
+        meta: {title: 'Pregled po osobama'}
       },
       {
         path: 'pregled-prisutnosti/:id',
         name: 'admin-attendance-details',
         component: () => import("@/views/admin/AttendanceDetails"),
+        meta: {title: 'Pregled prisutnosti'}
       },
     ]
   },

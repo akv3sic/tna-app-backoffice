@@ -12,5 +12,11 @@ export default {
   data: () => ({
     //
   }),
+  // change meta title on route change
+  created() {
+    this.$router.afterEach((to, from) => {
+      document.title = "TNA - " + to.meta.title || "Time & Attendance System";
+    });
+  },
 };
 </script>
