@@ -77,6 +77,12 @@ const routes = [
         component: () => import("@/views/admin/AttendanceDetails"),
         meta: {title: 'Pregled prisutnosti'}
       },
+      {
+        path: 'postavke',
+        name: 'admin-settings',
+        component: () => import("@/views/admin/Settings"),
+        meta: {title: 'Postavke'}
+      }
     ]
   },
 ]

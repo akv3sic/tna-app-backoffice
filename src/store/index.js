@@ -6,11 +6,12 @@ import locations from './modules/locations'
 import categories from './modules/categories'
 import events from './modules/events'
 import users from './modules/users'
+import settings from './modules/settings'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    auth, admin, locations, categories, events, users
+    auth, admin, locations, categories, events, users, settings
   }
 })

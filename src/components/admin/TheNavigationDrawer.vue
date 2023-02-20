@@ -81,6 +81,7 @@ export default {
         {
           icon: 'mdi-cog',
           title: 'Postavke',
+          to: '/admin/postavke'
         }
       ]
     }),
