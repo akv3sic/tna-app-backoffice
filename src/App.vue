@@ -14,6 +14,9 @@ export default {
   }),
   // change meta title on route change
   created() {
+    // set initial title
+    document.title = "TNA - " + this.$route.meta.title || "Time & Attendance System";
+
     this.$router.afterEach((to, from) => {
       document.title = "TNA - " + to.meta.title || "Time & Attendance System";
     });
