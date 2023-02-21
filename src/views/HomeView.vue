@@ -10,7 +10,7 @@
       <div class="mt-8" v-if="useAsTnaTerminal">
         <v-row>
           <v-col></v-col>
-          <v-col>
+          <v-col cols="7">
             <v-card class="mx-auto" max-width="400" v-if="activeEvent">
               <v-card-title class="text-h6 text-center">
                 {{ activeEventFormated.name }}
@@ -30,15 +30,25 @@
                   </v-col>
                 </v-row>
               </v-card-text>
+              <v-progress-linear :value="eventProgress"></v-progress-linear>
             </v-card>
-            <div v-else>
-
+            <div v-else class="d-flex justify-center">
                 <v-alert
                   type="info"
-                  class="mt-5"
+                  class="mt-5 d-flex justify-center"
                   outlined
+                  min-width="400"
+                  max-width="700"
                 >
                   Trenutno nema aktivnog događaja.
+                  <!-- spinning loader -->
+                  <v-progress-circular
+                    v-if="isLoading"
+                    indeterminate
+                    color="primary"
+                    class="ml-4"
+                    size="20"
+                  ></v-progress-circular>
                 </v-alert>
               </div>
           </v-col>
@@ -84,7 +94,7 @@ import { formatDate } from '@/common/helpers/dateFormater'
     },
     computed: {
       ...mapGetters('settings', ['useAsTnaTerminal']),
-      ...mapGetters('tna', ['activeEvent']),
+      ...mapGetters('tna', ['activeEvent', 'isLoading']),
 
       // format dates in active event
       activeEventFormated() {
@@ -96,6 +106,17 @@ import { formatDate } from '@/common/helpers/dateFormater'
             start: formatDate(this.activeEvent.start),
             end: formatDate(this.activeEvent.end)
           }
+        }
+      },
+      // event progress in %
+      eventProgress() {
+        if (this.activeEvent) {
+          const start = new Date(this.activeEvent.start);
+          const end = new Date(this.activeEvent.end);
+          const now = new Date();
+          const total = end - start;
+          const current = now - start;
+          return (current / total) * 100;
         }
       }
     },

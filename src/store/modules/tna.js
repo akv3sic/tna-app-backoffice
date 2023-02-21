@@ -4,15 +4,18 @@ import store from '@/store';
 
 const state = {
     activeEvent: null, // the active event at some location, null if there is no active event
+    isLoading: false,
 };
   
 const getters = {
     activeEvent: state => state.activeEvent,
+    isLoading: state => state.isLoading,
 };
   
 const actions = {
     fetchActiveEvent({ commit}) {
         // check if there is already an active event
+        commit('REQUEST')
         if (state.activeEvent) {
             // check if the active event has ended
             let endTime = new Date(state.activeEvent.end);
@@ -46,7 +49,11 @@ const actions = {
 const mutations = {
     SET_ACTIVE_EVENT(state, event) {
         state.activeEvent = event;
+        state.isLoading = false;
     },
+    REQUEST(state) {
+        state.isLoading = true;
+    }
 };
 
 export default {
