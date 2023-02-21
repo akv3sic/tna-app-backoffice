@@ -80,6 +80,17 @@ import { formatDate } from '@/common/helpers/dateFormater'
     components: {
       Header, Footer
     },
+    data() {
+      return {
+        updatedDateTime: new Date()
+      }
+    },
+    created() {
+      // update date and time every 15 seconds
+      setInterval(() => {
+        this.updatedDateTime = new Date();
+      }, 15000);
+    },
     mounted() {
       // fetch active event if useAsTnaTerminal is true
       if (this.useAsTnaTerminal)
@@ -142,7 +153,7 @@ import { formatDate } from '@/common/helpers/dateFormater'
         if (this.activeEvent) {
           const start = new Date(this.activeEvent.start);
           const end = new Date(this.activeEvent.end);
-          const now = new Date();
+          const now = this.updatedDateTime;
           const total = end - start;
           const current = now - start;
           return (current / total) * 100;
