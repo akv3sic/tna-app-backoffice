@@ -5,12 +5,16 @@
       <v-img src="./../assets/img/rfid-card-reader.png" width="15%" class="center mt-9-prcnt"></v-img>
       <h1 class="text-h4 text-center mt-4" v-if="!useAsTnaTerminal">Sustav za evidenciju prisutnosti</h1>
       <p class="text-center text-subtitle-1 mt-7" v-if="!useAsTnaTerminal">Lorem, ipsum dolor sit amet consectetur adipisicing elit.<br> Eaque error a molestias provident rerum? Dolore!</p>
-      <!--^^^^^^^^^^^^^^^^^^^-->
-      <!-- active event info -->
+      <!--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--->
+      <!------------------------------------ TNA SECTION ------------------------------------>
       <div class="mt-8" v-if="useAsTnaTerminal">
         <v-row>
           <v-col></v-col>
           <v-col cols="7">
+            <!----------------- RFID input field (hidden) ---------------->
+            <input ref="RFIDinput" id="RFIDinput" type="text" @blur="focusRFIDInput" @keydown.enter="handleRFIDentered"/>
+            <!--********************************************************-->
+            <!------------------active event info card ---------------->
             <v-card class="mx-auto" max-width="400" v-if="activeEvent">
               <v-card-title class="text-h6 text-center">
                 {{ activeEventFormated.name }}
@@ -32,6 +36,7 @@
               </v-card-text>
               <v-progress-linear :value="eventProgress"></v-progress-linear>
             </v-card>
+             <!--*************************************************-->
             <div v-else class="d-flex justify-center">
                 <v-alert
                   type="info"
@@ -55,7 +60,7 @@
           <v-col></v-col>
         </v-row>
       </div> 
-      <!----------------------->
+      <!-------------------------------------------------------------------------------->
       <p class="text-center" v-if="!useAsTnaTerminal">
         <a href="#" target="_blank">Korisnička dokumentacija</a>
       </p>
@@ -80,16 +85,40 @@ import { formatDate } from '@/common/helpers/dateFormater'
       if (this.useAsTnaTerminal)
         {
           this.fetchActiveEvent();
+          this.focusRFIDInput();
           // check if there is an active event every 5 minutes
           setInterval(() => {
             this.fetchActiveEvent();
           }, 300000);
-        }
+        }      
     },
     methods: {
       // call fetchActiveEvent action
       fetchActiveEvent() {
         this.$store.dispatch('tna/fetchActiveEvent');
+      },
+      // focus RFID input field
+      focusRFIDInput() {
+        this.$refs.RFIDinput.focus();
+      },
+      handleRFIDentered() {
+        const card_id = this.$refs.RFIDinput.value;
+        // regex test for valid RFID (10 digits)
+        const regex = /^\d{10}$/;
+        if (regex.test(card_id)) {
+          const record = {
+            card_id,
+            event: this.activeEvent.id
+          }
+          this.$store.dispatch('tna/postAttendanceRecord', record);
+          this.$refs.RFIDinput.value = ''; // clear input field
+          this.focusRFIDInput();
+        }
+        else {
+          this.$refs.RFIDinput.value = ''; // clear input field
+          this.focusRFIDInput();
+          console.log("Invalid RFID")
+        }
       }
     },
     computed: {
@@ -134,5 +163,11 @@ import { formatDate } from '@/common/helpers/dateFormater'
 
 .mt-9-prcnt {
   margin-top: 9%;
+}
+
+#RFIDinput {
+  position: absolute;
+  top: -100px;
+  left: -100px;
 }
 </style>

@@ -1,6 +1,7 @@
 // this module contains core logic for fetching active event at some location and for storing new attendance records
 import httpClient from '@/common/httpClient';
 import store from '@/store';
+import Swal from 'sweetalert2';
 
 const state = {
     activeEvent: null, // the active event at some location, null if there is no active event
@@ -44,6 +45,45 @@ const actions = {
                 console.log(err)
             })
     },
+    // post a new attendance record to the API
+    postAttendanceRecord({ commit }, payload) {
+        commit('REQUEST')
+        let url = '/record/'
+        httpClient.post(url, payload)
+            .then((response) => {
+                if(response.status == 201){
+                    commit('POST_NEW_ATTENDANCE_RECORD_SUCCESS');
+                    const userName = response.data.user.first_name.charAt(0).toUpperCase() + response.data.user.first_name.slice(1) + ' ' + response.data.user.last_name.charAt(0).toUpperCase() + response.data.user.last_name.slice(1);
+                    const timeNow = new Date().toLocaleTimeString();
+                    Swal.fire({
+                        title: response.data.type == 'IN' ? 'Dobrodošli!' : 'Doviđenja!',
+                        html: "<p>" + userName + "<br/>Vrijeme: <i>" + timeNow + "</i></p>",
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2100,
+                        toast: true,
+                        position: 'top-end',
+                    })
+                    return;
+                }
+                else {
+                    Swal.fire({
+                        title: 'Ups!',
+                        text: 'Došlo je do greške prilikom spremanja podataka',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2100,
+                        position: 'top-end',
+                        toast: true,
+                    })
+                    return;
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
 };
 
 const mutations = {
@@ -53,6 +93,9 @@ const mutations = {
     },
     REQUEST(state) {
         state.isLoading = true;
+    },
+    POST_NEW_ATTENDANCE_RECORD_SUCCESS(state) {
+        state.isLoading = false;
     }
 };
 
