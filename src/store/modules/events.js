@@ -89,6 +89,7 @@ const state = () => ({
         state.isLoading = false
         // loop through events and format date
         state.events.forEach(event => {
+            event.isLive = new Date(event.start) < Date.now() && new Date(event.end) > Date.now()
             event.start = formatDate(event.start)
             event.end = formatDate(event.end)
         })

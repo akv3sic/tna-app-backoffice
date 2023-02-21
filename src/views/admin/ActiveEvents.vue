@@ -75,7 +75,9 @@
         >
             <v-row>
                 <v-col>
-                    <v-card-title> {{ event.name }} </v-card-title>         
+                    <v-card-title>
+                        {{ event.name }} <v-icon color="red" v-if="event.isLive && showLiveIcon">mdi-circle-medium</v-icon>
+                    </v-card-title>         
                     <v-card-text>
                          {{ event.description }} 
                     </v-card-text>
@@ -121,11 +123,18 @@ export default {
     data: () => ({
         selectedCategory: null,
         selectedLocation: null,
+        showLiveIcon: true
     }),
     mounted() {
         this.fetchLocations()
         this.fetchCategories()
         this.fetchEvents()
+
+        /* live icon blinking */
+        setInterval(() => {
+            this.showLiveIcon = !this.showLiveIcon
+        }, 600)
+        /**********************/
     },
     methods: {
         fetchLocations() {
@@ -172,5 +181,5 @@ export default {
 .filter-item {
     max-width: 240px;
     margin: 0px 12px;
-}   
+}
 </style>
