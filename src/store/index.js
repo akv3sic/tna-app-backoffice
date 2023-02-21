@@ -7,11 +7,12 @@ import categories from './modules/categories'
 import events from './modules/events'
 import users from './modules/users'
 import settings from './modules/settings'
+import tna from './modules/tna'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    auth, admin, locations, categories, events, users, settings
+    auth, admin, locations, categories, events, users, settings, tna
   }
 })
