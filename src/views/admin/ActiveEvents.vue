@@ -22,7 +22,7 @@
 
 
         <!-- filters -->
-        <div class="d-flex filters-section" v-if="!isLoading">
+        <div class="d-flex filters-section" v-if="!isLoading & events.length>0">
             <span class="filter-item">
                 <v-select v-model="selectedCategory" :items="categories" item-text="name" item-value="id" filled
                     label="Filtriraj po kategoriji"></v-select>
@@ -79,7 +79,12 @@
 
 
         <!-- stranicenje -->
-        <v-pagination :length="3" disabled></v-pagination>
+        <v-pagination :length="3" disabled v-if="events.length>0"></v-pagination>
+
+        <!-- no events -->
+        <v-alert v-if="!isLoading & events.length==0" type="info" class="my-3" outlined>
+            Trenutno nemate aktivnih događaja.
+        </v-alert>
 
     </v-container>
 </template>
