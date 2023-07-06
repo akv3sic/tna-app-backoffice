@@ -25,10 +25,10 @@
                     Ime i prezime
                 </v-col>
                 <v-col class="text-left" cols="3">
-                    e-mail
+                    E-mail
                 </v-col>
                 <v-col class="text-left" cols="6">
-                    Ukupno prisutnost
+                    
                 </v-col>
             </v-row>
             <!-- ************************** -->
@@ -47,14 +47,14 @@
                 </v-col>
                 <v-col cols="5" md="3">
                     <v-row class="hidden-md-and-up"> 
-                        <v-col class="text-caption">e-mail</v-col>
+                        <v-col class="text-caption">E-mail</v-col>
                     </v-row>
                     {{ user.email}}
                 </v-col><v-col cols="3" md="4">
                     <v-row class="hidden-md-and-up"> 
-                        <v-col class="text-caption">lorem ipsum</v-col>
+                        <v-col class="text-caption"></v-col>
                     </v-row>
-                    some col
+                    
                 </v-col>
     
                 <v-col  cols="12" md="2">
