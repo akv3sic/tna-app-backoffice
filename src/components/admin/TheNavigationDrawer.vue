@@ -6,10 +6,11 @@
             app
         >
         <v-list-item>
-            <v-list-item-content>
+            <v-list-item-content class="my-3">
                 <v-row>
                     <v-col justify-center>
                     <router-link to="/" class="text-decoration-none  text-uppercase primary--text">
+                        <img src="@/assets/img/logo.png" alt="logo" class="logo">
                         <span class="d-inline font-weight-bold">Sustav za evidenciju prisutnosti</span>
                     </router-link>
                     </v-col>
@@ -97,3 +98,12 @@ export default {
     },
 }
 </script>
+
+<style lang="css" scoped>
+.logo {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 7px;
+    display: inline-block;
+}
+</style>
