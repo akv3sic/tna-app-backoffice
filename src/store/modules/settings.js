@@ -3,7 +3,7 @@
 // initial state
 const state = () => ({
     isLoading: true,
-    useAsTnaTerminal: localStorage.getItem('useAsTnaTerminal') === 'true',
+    useAsTnaTerminal: localStorage.getItem('useAsTnaTerminal') || false,
     terminalLocation: localStorage.getItem('terminalLocation') || null,
 })
 
@@ -27,6 +27,10 @@ const actions = {
     },
     setTerminalLocation({ commit }, payload) {
         commit('SET_TERMINAL_LOCATION', payload)
+    },
+    toggleTerminalMode({ commit, state }) {
+        commit('SET_USE_AS_TNA_TERMINAL', !state.useAsTnaTerminal)
+        localStorage.setItem('useAsTnaTerminal', !state.useAsTnaTerminal)
     }
 }
 

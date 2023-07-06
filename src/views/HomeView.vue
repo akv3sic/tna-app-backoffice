@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header v-if="!useAsTnaTerminal" />
     <v-container fluid class="pa-0">
       <v-img src="./../assets/img/rfid-card-reader.png" width="15%" class="center mt-9-prcnt"></v-img>
       <h1 class="text-h4 text-center mt-4" v-if="!useAsTnaTerminal">Sustav za evidenciju prisutnosti</h1>
@@ -91,6 +91,13 @@ export default {
         this.fetchActiveEvent();
       }, 300000);
     }
+
+    // toggle terminal mode when Alt + T key is pressed
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === 't' || e.key === 'T') && e.altKey) {
+        this.toggleTerminalMode();
+      }
+    });
   },
   methods: {
     // call fetchActiveEvent action
@@ -119,6 +126,11 @@ export default {
         this.focusRFIDInput();
         console.log("Invalid RFID")
       }
+    },
+
+    //toggle terminal mode: use as tna terminal or not
+    toggleTerminalMode() {
+      this.$store.dispatch('settings/toggleTerminalMode');
     }
   },
   computed: {
