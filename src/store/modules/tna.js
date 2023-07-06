@@ -7,14 +7,14 @@ const state = {
     activeEvent: null, // the active event at some location, null if there is no active event
     isLoading: false,
 };
-  
+
 const getters = {
     activeEvent: state => state.activeEvent,
     isLoading: state => state.isLoading,
 };
-  
+
 const actions = {
-    fetchActiveEvent({ commit}) {
+    fetchActiveEvent({ commit }) {
         // check if there is already an active event
         commit('REQUEST')
         if (state.activeEvent) {
@@ -32,11 +32,11 @@ const actions = {
         url += locationId + '/';
         httpClient.get(url)
             .then((response) => {
-                if(response.status == 204){
+                if (response.status == 204) {
                     commit('SET_ACTIVE_EVENT', null);
                     return;
                 }
-                else if(response.status == 200){
+                else if (response.status == 200) {
                     commit('SET_ACTIVE_EVENT', response.data);
                     return;
                 }
@@ -51,7 +51,7 @@ const actions = {
         let url = '/record/'
         httpClient.post(url, payload)
             .then((response) => {
-                if(response.status == 201){
+                if (response.status == 201) {
                     commit('POST_NEW_ATTENDANCE_RECORD_SUCCESS');
                     const userName = response.data.user.first_name.charAt(0).toUpperCase() + response.data.user.first_name.slice(1) + ' ' + response.data.user.last_name.charAt(0).toUpperCase() + response.data.user.last_name.slice(1);
                     const timeNow = new Date().toLocaleTimeString();

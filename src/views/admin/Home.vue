@@ -4,8 +4,8 @@
         <NavigationDrawer />
         <v-container fluid class="pa-0">
             <!-- Ovdje se injektiraju pogledi -->
-          <router-view></router-view>
-       </v-container>
+            <router-view></router-view>
+        </v-container>
     </div>
 </template>
 

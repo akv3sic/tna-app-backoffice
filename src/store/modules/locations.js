@@ -4,22 +4,22 @@ import httpClient from '@/common/httpClient'
 const state = () => ({
     isLoading: true,
     locations: [],
- })
- 
- // getters
- const getters = {
+})
+
+// getters
+const getters = {
     locations(state) {
         return state.locations;
     },
     isLoading(state) {
         return state.isLoading;
     },
- }
- 
- // actions
- const actions = {
+}
 
-    fetchLocations( {commit}) {
+// actions
+const actions = {
+
+    fetchLocations({ commit }) {
         commit('REQUEST')
         const url = '/location/'
         httpClient.get(url)
@@ -28,25 +28,25 @@ const state = () => ({
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     },
- }
- 
- // mutations
- const mutations = {
-    SET_LOCATIONS (state, payload) {
+}
+
+// mutations
+const mutations = {
+    SET_LOCATIONS(state, payload) {
         state.locations = payload
         state.isLoading = false
     },
-    REQUEST (state){
+    REQUEST(state) {
         state.isLoading = true
     },
- }
- 
- export default {
-     namespaced: true,
-     state,
-     getters,
-     actions,
-     mutations
- }
+}
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
+}

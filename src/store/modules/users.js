@@ -38,68 +38,68 @@ const getters = {
 
 // actions
 const actions = {
-    fetchUsers( {commit}) {
+    fetchUsers({ commit }) {
         commit('REQUEST')
         const url = '/users/'
-        httpClient.get(url, {withCredentials: true})
+        httpClient.get(url, { withCredentials: true })
             .then((response) => {
                 commit('SET_USERS', response.data)
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     },
-    fetchUserAttendance( {commit}, id) {
+    fetchUserAttendance({ commit }, id) {
         commit('REQUEST_USER_ATTENDANCE')
         const url = '/users/' + id + '/'
-        httpClient.get(url, {withCredentials: true})
+        httpClient.get(url, { withCredentials: true })
             .then((response) => {
                 commit('SET_USER_ATTENDANCE', response.data.filters)
                 commit('SET_USER', response.data.user)
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     },
     // fetch attendance by user id and category id
-    fetchUserAttendanceRecordsByCategory( {commit}, {user_id, category}) {
+    fetchUserAttendanceRecordsByCategory({ commit }, { user_id, category }) {
         commit('REQUEST_USER_ATTENDANCE_RECORDS')
         const url = '/record/' + user_id + '/'
-        httpClient.get(url, {withCredentials: true, params: {category}})
+        httpClient.get(url, { withCredentials: true, params: { category } })
             .then((response) => {
                 commit('SET_USER_ATTENDANCE_RECORDS', response.data)
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     }
 
 }
 
 // mutations
 const mutations = {
-    SET_USERS (state, payload) {
+    SET_USERS(state, payload) {
         state.users = payload
         state.isLoading = false
     },
-    REQUEST (state){
+    REQUEST(state) {
         state.isLoading = true
     },
-    REQUEST_USER_ATTENDANCE (state){
+    REQUEST_USER_ATTENDANCE(state) {
         state.categoriesLoading = true
     },
-    REQUEST_USER_ATTENDANCE_RECORDS (state){
+    REQUEST_USER_ATTENDANCE_RECORDS(state) {
         state.recordsLoading = true
     },
-    SET_USER_ATTENDANCE (state, payload) {
+    SET_USER_ATTENDANCE(state, payload) {
         state.userAttendance = payload
         state.categoriesLoading = false
     },
-    SET_USER_ATTENDANCE_RECORDS (state, payload) {
+    SET_USER_ATTENDANCE_RECORDS(state, payload) {
         state.userAttendanceRecords = payload
         state.recordsLoading = false
     },
-    SET_USER (state, payload) {
+    SET_USER(state, payload) {
         state.user = payload
         state.isLoading = false
     }

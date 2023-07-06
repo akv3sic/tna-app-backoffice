@@ -11,51 +11,36 @@
                 </v-btn>
             </v-col>
         </v-row>
-        
+
         <!-- add a category -->
         <v-row v-if="addNewActivated" class="mx-1">
-                    <v-col cols="3">
-                        <v-text-field
-                            label="Naziv kategorije"
-                            v-model="newCategory.name"
-                        ></v-text-field>  
-                    </v-col>
-                    <v-col cols="7">
-                        <v-text-field
-                            label="Opis kategorije"
-                            v-model="newCategory.description"
-                        ></v-text-field>
-                    </v-col>
-                    <v-col>
-                        <v-btn text small class="primary--text mt-2" @click="addNewCategory">Potvrdi</v-btn>  
-                        <v-btn text small class="text red--text mt-2" @click="toggleAddNewActivated">x</v-btn>  
-                    </v-col>
+            <v-col cols="3">
+                <v-text-field label="Naziv kategorije" v-model="newCategory.name"></v-text-field>
+            </v-col>
+            <v-col cols="7">
+                <v-text-field label="Opis kategorije" v-model="newCategory.description"></v-text-field>
+            </v-col>
+            <v-col>
+                <v-btn text small class="primary--text mt-2" @click="addNewCategory">Potvrdi</v-btn>
+                <v-btn text small class="text red--text mt-2" @click="toggleAddNewActivated">x</v-btn>
+            </v-col>
         </v-row>
 
         <!-- skeleton loader -->
-        <v-skeleton-loader
-            v-if="isLoading"
-            type="article@5"
-            class="my-8"
-        ></v-skeleton-loader>
+        <v-skeleton-loader v-if="isLoading" type="article@5" class="my-8"></v-skeleton-loader>
 
         <!-- category card -->
-        <v-card 
-            v-for="category in categories"
-            :key="category.id"
-            class="my-8"
-            v-if="!isLoading"
-        >
+        <v-card v-for="category in categories" :key="category.id" class="my-8" v-if="!isLoading">
             <v-row>
                 <v-col>
-                    <v-card-title> {{ category.name }} </v-card-title>         
+                    <v-card-title> {{ category.name }} </v-card-title>
                     <v-card-text>
-                         {{ category.description }} 
+                        {{ category.description }}
                     </v-card-text>
                 </v-col>
 
 
-                <v-col class="d-flex  align-end">     
+                <v-col class="d-flex  align-end">
                     <v-card-text>
                         <span>Kreirano: {{ category.created_at }}</span>
                         <br>
@@ -65,39 +50,24 @@
 
                 <v-col>
                     <v-card-text class="">
-                        <v-btn
-                        class="mx-2"
-                        fab
-                        dark
-                        small
-                        color="primary"
-                        >
-                        <v-icon dark>
-                            mdi-pencil
-                        </v-icon>
+                        <v-btn class="mx-2" fab dark small color="primary">
+                            <v-icon dark>
+                                mdi-pencil
+                            </v-icon>
                         </v-btn>
-                        <v-btn
-                        class="mx-2"
-                        fab
-                        dark
-                        small
-                        color="primary"
-                        >
-                        <v-icon dark>
-                            mdi-delete-outline
-                        </v-icon>
-                        </v-btn>                            
+                        <v-btn class="mx-2" fab dark small color="primary">
+                            <v-icon dark>
+                                mdi-delete-outline
+                            </v-icon>
+                        </v-btn>
                     </v-card-text>
                 </v-col>
             </v-row>
         </v-card>
-       
+
         <!-- stranicenje -->
-        <v-pagination
-        :length="3"
-        disabled
-        ></v-pagination>
-      
+        <v-pagination :length="3" disabled></v-pagination>
+
     </v-container>
 </template>
 
@@ -133,12 +103,10 @@ export default {
         },
     },
     computed: {
-        
-    ...mapGetters('categories', ['categories', 'isLoading']),
+
+        ...mapGetters('categories', ['categories', 'isLoading']),
     },
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

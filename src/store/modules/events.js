@@ -10,10 +10,10 @@ const state = () => ({
     eventRecords: [],
     hasTheEventFinished: null,
     hasTheEventStarted: null,
- })
- 
- // getters
- const getters = {
+})
+
+// getters
+const getters = {
     events(state) {
         return state.events;
     },
@@ -32,28 +32,28 @@ const state = () => ({
     hasTheEventStarted(state) {
         return state.hasTheEventStarted;
     }
- }
- 
- // actions
- const actions = {
+}
+
+// actions
+const actions = {
     // fetch events and filter by category, location and active(true/false) using query params
-    fetchEvents( {commit}, {category, location, active}) {
+    fetchEvents({ commit }, { category, location, active }) {
         commit('REQUEST')
         const url = '/event/'
-        httpClient.get(url, {withCredentials: true, params: {category, location, active}})  // query params are passed as an object to the params property
+        httpClient.get(url, { withCredentials: true, params: { category, location, active } })  // query params are passed as an object to the params property
             .then((response) => {                                                    // of the config object
                 commit('SET_EVENTS', response.data)
             })
             .catch(err => {
                 console.log(err)
             })
-    },  
+    },
 
     // fetch event details
-    fetchEventDetails( {commit}, id) {
+    fetchEventDetails({ commit }, id) {
         commit('REQUEST')
         const url = '/event/' + id + '/'
-        httpClient.get(url, {withCredentials: true})
+        httpClient.get(url, { withCredentials: true })
             .then((response) => {
                 commit('SET_EVENT', response.data.event)
                 commit('SET_EVENT_RECORDS', response.data.records)
@@ -64,10 +64,10 @@ const state = () => ({
     },
 
     // post new category
-    postEvent( {commit}, event) {
+    postEvent({ commit }, event) {
         commit('REQUEST')
         const url = '/event/'
-        httpClient.post(url, event, {withCredentials: true})
+        httpClient.post(url, event, { withCredentials: true })
             .then((response) => {
                 if (response.status === 201) { // created
                     // call mutation
@@ -78,13 +78,13 @@ const state = () => ({
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     },
- }
- 
- // mutations
- const mutations = {
-    SET_EVENTS (state, payload) {
+}
+
+// mutations
+const mutations = {
+    SET_EVENTS(state, payload) {
         state.events = payload
         state.isLoading = false
         // loop through events and format date
@@ -94,7 +94,7 @@ const state = () => ({
             event.end = formatDate(event.end)
         })
     },
-    SET_EVENT (state, payload) {
+    SET_EVENT(state, payload) {
         state.event = payload
         state.isLoading = false
         // check if event is finished and started
@@ -110,7 +110,7 @@ const state = () => ({
         state.event.start = formatDate(state.event.start)
         state.event.end = formatDate(state.event.end)
     },
-    SET_EVENT_RECORDS (state, payload) {
+    SET_EVENT_RECORDS(state, payload) {
         state.eventRecords = payload
         // loop through records and format dates
         state.eventRecords.forEach(record => {
@@ -119,10 +119,10 @@ const state = () => ({
         })
         state.isLoading = false
     },
-    REQUEST (state){
+    REQUEST(state) {
         state.isLoading = true
     },
-    POST_SUCCESS (state){
+    POST_SUCCESS(state) {
         state.isLoading = false
         Swal.fire({
             position: 'top-end',
@@ -132,12 +132,12 @@ const state = () => ({
             showConfirmButton: false,
         })
     }
- }
- 
- export default {
-     namespaced: true,
-     state,
-     getters,
-     actions,
-     mutations
- }
+}
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
+}

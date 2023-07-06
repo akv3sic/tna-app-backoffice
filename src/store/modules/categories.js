@@ -6,37 +6,37 @@ import { formatDate } from '@/common/helpers/dateFormater'
 const state = () => ({
     isLoading: true,
     categories: [],
- })
- 
- // getters
- const getters = {
+})
+
+// getters
+const getters = {
     categories(state) {
         return state.categories;
     },
     isLoading(state) {
         return state.isLoading;
     },
- }
- 
- // actions
- const actions = {
+}
 
-    fetchCategories( {commit}) {
+// actions
+const actions = {
+
+    fetchCategories({ commit }) {
         commit('REQUEST')
         const url = '/categories/'
-        httpClient.get(url, {withCredentials: true})
+        httpClient.get(url, { withCredentials: true })
             .then((response) => {
                 commit('SET_CATEGORIES', response.data)
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     },
     // post new category
-    postCategory( {commit}, category) {
+    postCategory({ commit }, category) {
         commit('REQUEST')
         const url = '/categories/'
-        httpClient.post(url, category, {withCredentials: true})
+        httpClient.post(url, category, { withCredentials: true })
             .then((response) => {
                 if (response.status === 201) { // created
                     // call mutation
@@ -47,13 +47,13 @@ const state = () => ({
             })
             .catch(err => {
                 console.log(err)
-             })
+            })
     },
- }
- 
- // mutations
- const mutations = {
-    SET_CATEGORIES (state, payload) {
+}
+
+// mutations
+const mutations = {
+    SET_CATEGORIES(state, payload) {
         state.categories = payload
         state.isLoading = false
         // loop though categories and format dates
@@ -62,10 +62,10 @@ const state = () => ({
             category.updated_at ? category.updated_at = formatDate(category.updated_at) : category.updated_at = null
         })
     },
-    REQUEST (state){
+    REQUEST(state) {
         state.isLoading = true
     },
-    POST_SUCCESS (state){
+    POST_SUCCESS(state) {
         state.isLoading = false
         Swal.fire({
             position: 'top-end',
@@ -75,12 +75,12 @@ const state = () => ({
             showConfirmButton: false,
         })
     }
- }
- 
- export default {
-     namespaced: true,
-     state,
-     getters,
-     actions,
-     mutations
- }
+}
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
+}

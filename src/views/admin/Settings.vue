@@ -5,34 +5,24 @@
         </div>
         <v-row class="mb-1">
             <v-col>
-                <span class="accent--text"> Ovdje možete odabrati želite li koristiti ovu web aplikaciju kao terminal za cvikanje RFID kartica. </span>
+                <span class="accent--text"> Ovdje možete odabrati želite li koristiti ovu web aplikaciju kao terminal za
+                    cvikanje RFID kartica. </span>
             </v-col>
         </v-row>
         <v-row class="">
             <v-col>
                 <!-- switch to choose to use this app as tna terminal or not -->
-                <v-switch
-                    v-model="useAsTnaTerminal"
-                    label="Koristi kao terminal za cvikanje kartica"
-                    color="primary"
-                    class="mt-2"
-                ></v-switch>
+                <v-switch v-model="useAsTnaTerminal" label="Koristi kao terminal za cvikanje kartica" color="primary"
+                    class="mt-2"></v-switch>
             </v-col>
-       </v-row>
-       <v-row>
-        <v-col cols="12" md="4" lg="3">
-            <v-select
-                v-model="terminalLocation"
-                :items="locations"
-                item-text="name"
-                item-value="id"
-                filled
-                label="Odaberi lokaciju terminala"
-                :disabled="!useAsTnaTerminal"
-                prepend-icon="mdi-map-marker"
-                ></v-select>
-        </v-col>
-       </v-row>
+        </v-row>
+        <v-row>
+            <v-col cols="12" md="4" lg="3">
+                <v-select v-model="terminalLocation" :items="locations" item-text="name" item-value="id" filled
+                    label="Odaberi lokaciju terminala" :disabled="!useAsTnaTerminal"
+                    prepend-icon="mdi-map-marker"></v-select>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 <script>
@@ -81,6 +71,4 @@ export default {
 
 }
 </script>
-<style>
-
-</style>
+<style></style>
