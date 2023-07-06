@@ -3,7 +3,7 @@
         <h2 class="mb-2">Aktivni događaji</h2>
         <v-row class="mb-5">
             <v-col>
-                <span class="accent--text"> Pregled nadolazećih događaja koje ste kreirali. </span>
+                <span class="accent--text"> Pregled trenutno aktivnih i nadolazećih događaja koje ste kreirali. </span>
             </v-col>
             <v-col>
                 <v-btn class="primary px-5" to="dodaj-dogadjaj">
