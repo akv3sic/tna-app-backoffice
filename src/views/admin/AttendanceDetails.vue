@@ -103,8 +103,11 @@ export default {
         categoryChipColor(category_percentage) {
             if (category_percentage >= 70) {
                 return "green lighten-2";
+            }
+            else if (category_percentage >= 50) {
+                return "yellow lighten-2";
             } else {
-                return "grey lighten-2";
+                return "red lighten-2";
             }
         },
     },
